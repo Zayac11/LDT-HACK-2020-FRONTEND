@@ -1,6 +1,7 @@
 import React from 'react';
 import * as axios from "axios";
 import DjangoCSRFToken from 'django-react-csrftoken'
+import {Redirect} from "react-router-dom";
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -20,8 +21,7 @@ class Register extends React.Component {
             // numberOfGuests: 2,
             name: "",
             pass: "",
-            refreshToken: "",
-            accessToken: ""
+            isRegister: false,
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -38,7 +38,7 @@ class Register extends React.Component {
         });
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         // alert('Отправленное имя: ' + this.state.name + '\n' + 'Password: ' + this.state.pass);
         
         let formdata = new FormData();
@@ -51,50 +51,62 @@ class Register extends React.Component {
             redirect: 'follow'
         };
 
-        fetch("http://127.0.0.1:8000/auth/users/", requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-
+        await fetch("http://127.0.0.1:8000/auth/users/", requestOptions)
+            .then(response => {
+                                response.json()
+                this.setState({
+                    isRegister: true
+                })
+            })
+            .then(result => {
+                console.log(result)
+            })
             // .then(() => {
-            //
             //     fetch("http://127.0.0.1:8000/auth/jwt/create/", requestOptions)
             //         .then(response => response.json())
             //         .then(result => {
             //
             //             this.setState({
             //                 resultToken: result.refresh,
-            //                 accessToken: result.access
+            //                 accessToken: result.access,
+            //                 login: true
             //             })
             //         })
-            //         // .then( () => {event.preventDefault()} )
+            //         .then( () => {event.preventDefault()} )
             //         .catch(error => console.log('error', error))
             //
             // })
             .catch(error => console.log('error', error));
         // console.log(this.state.resultToken)
         // console.log(this.state.accessToken)
-
-
+        // event.preventDefault();
     }
 
     render() {
         return (
-            <form>
-                <DjangoCSRFToken />
-                <label>
-                    Имя:
-                    <input name="name" type="text" value={this.state.name} onChange={this.handleInputChange} />
-                </label>
-                <br />
-                <label>
-                    Пароль:
-                    <input name="pass" type="password" value={this.state.pass} onChange={this.handleInputChange} />
-                </label>
-                <label>
-                    <input type="submit" value="Отправить" onClick={this.handleSubmit}/>
-                </label>
+            <>
+                {
+                    this.state.isRegister ?
+                    <Redirect to="login" />
+                        :
+                    // <DjangoCSRFToken/>
+                    <div>
 
-            </form>
+                        <label>
+                        Имя:
+                        <input name="name" type="text" value={this.state.name} onChange={this.handleInputChange} />
+                        </label>
+                        <br />
+                        <label>
+                        Пароль:
+                        <input name="pass" type="password" value={this.state.pass} onChange={this.handleInputChange} />
+                        </label>
+                        <label>
+                        <input type="submit" value="Отправить" onClick={this.handleSubmit}/>
+                        </label>
+
+                    </div>}
+            </>
         )
     }
 }

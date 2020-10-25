@@ -1,6 +1,7 @@
 import React from 'react';
 import * as axios from "axios";
 import DjangoCSRFToken from 'django-react-csrftoken'
+import {Redirect} from "react-router-dom";
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -21,7 +22,8 @@ class Login extends React.Component {
             name: "",
             pass: "",
             refreshToken: "",
-            accessToken: ""
+            accessToken: "",
+            isLogin: false
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -38,7 +40,7 @@ class Login extends React.Component {
         });
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         // alert('Отправленное имя: ' + this.state.name + '\n' + 'Password: ' + this.state.pass);
 
         let formdata = new FormData();
@@ -51,10 +53,20 @@ class Login extends React.Component {
             // redirect: 'follow'
         };
 
-        fetch("http://127.0.0.1:8000/auth/jwt/create/", requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
+        await fetch("http://127.0.0.1:8000/auth/jwt/create/", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
+                this.setState({
+                    resultToken: result.refresh,
+                    accessToken: result.access,
+                    // isLogin: true
+                })
+            })
             .catch(error => console.log('error', error));
+
+        // event.preventDefault();
+
         // console.log(this.state.resultToken)
         // console.log(this.state.accessToken)
 
@@ -85,22 +97,30 @@ class Login extends React.Component {
 
     render() {
         return (
-            <form>
-                <DjangoCSRFToken />
-                <label>
-                    Имя:
-                    <input name="name" type="text" value={this.state.name} onChange={this.handleInputChange} />
-                </label>
-                <br />
-                <label>
-                    Пароль:
-                    <input name="pass" type="password" value={this.state.pass} onChange={this.handleInputChange} />
-                </label>
-                <label>
-                    <input type="submit" value="Войти" onClick={this.handleSubmit}/>
-                </label>
+            <>
+            {
+                this.state.isLogin ?
+                    <Redirect to="post" />
+                    :
+                    // <DjangoCSRFToken/>
+                    <div>
 
-            </form>
+                        <label>
+                            Имя:
+                            <input name="name" type="text" value={this.state.name} onChange={this.handleInputChange} />
+                        </label>
+                        <br />
+                        <label>
+                            Пароль:
+                            <input name="pass" type="password" value={this.state.pass} onChange={this.handleInputChange} />
+                        </label>
+                        <label>
+                            <input type="submit" value="Отправить" onClick={this.handleSubmit}/>
+                        </label>
+
+                    </div>
+            }
+            </>
         )
     }
 }
