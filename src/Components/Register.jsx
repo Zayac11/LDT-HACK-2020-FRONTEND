@@ -52,26 +52,24 @@ class Register extends React.Component {
         };
 
         fetch("http://127.0.0.1:8000/auth/users/", requestOptions)
-            .then(response => {
-                response.text()
-            })
+            .then(response => response.text())
             .then(result => console.log(result))
 
-            .then(() => {
-
-                fetch("http://127.0.0.1:8000/auth/jwt/create/", requestOptions)
-                    .then(response => response.json())
-                    .then(result => {
-
-                        this.setState({
-                            resultToken: result.refresh,
-                            accessToken: result.access
-                        })
-                    })
-                    // .then( () => {event.preventDefault()} )
-                    .catch(error => console.log('error', error))
-
-            })
+            // .then(() => {
+            //
+            //     fetch("http://127.0.0.1:8000/auth/jwt/create/", requestOptions)
+            //         .then(response => response.json())
+            //         .then(result => {
+            //
+            //             this.setState({
+            //                 resultToken: result.refresh,
+            //                 accessToken: result.access
+            //             })
+            //         })
+            //         // .then( () => {event.preventDefault()} )
+            //         .catch(error => console.log('error', error))
+            //
+            // })
             .catch(error => console.log('error', error));
         // console.log(this.state.resultToken)
         // console.log(this.state.accessToken)
