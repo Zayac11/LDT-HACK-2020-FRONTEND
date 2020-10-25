@@ -1,17 +1,6 @@
 import React from 'react';
-import * as axios from "axios";
-import DjangoCSRFToken from 'django-react-csrftoken'
 import {Redirect} from "react-router-dom";
 import Cookies from 'js-cookie'
-
-axios.defaults.xsrfCookieName = 'csrftoken';
-axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-
-// let instance = axios.create({
-//     // withCredentials: true,
-//     baseURL: 'http://127.0.0.1:8000',
-//
-// })
 
 class Login extends React.Component {
 
@@ -58,12 +47,12 @@ class Login extends React.Component {
             .then(response => response.json())
             .then(result => {
                 console.log(result)
+                Cookies.set('accessToken', result.access, { expires: 7 })
                 this.setState({
                     refreshToken: result.refresh,
                     accessToken: result.access,
                     isLogin: true,
                 })
-                Cookies.set('accessToken', result.access)
             })
             .catch(error => console.log('error', error));
 

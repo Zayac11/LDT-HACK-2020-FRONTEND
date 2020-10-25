@@ -1,16 +1,18 @@
 import React from 'react';
 import Cookies from 'js-cookie'
+import {Redirect} from "react-router-dom";
 
 class Post extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            posts: []
+            posts: [],
+            isLogin: true
         };
 
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        // this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleLogout = this.handleLogout.bind(this);
     }
 
     componentDidMount() {
@@ -18,33 +20,48 @@ class Post extends React.Component {
         let myHeaders = new Headers();
         myHeaders.append("Authorization", accessToken);
 
-        // let formdata = new FormData();
-
         let requestOptions = {
             method: 'GET',
             headers: myHeaders,
-            // body: formdata,
             redirect: 'follow'
         };
 
         fetch("http://127.0.0.1:8000/api/demosnews/", requestOptions)
             .then(response => response.json())
-            .then(result => console.log(result))
+            .then(result => {
+                console.log(result)
+                if(result.code) {
+                    this.setState({
+                        isLogin: false
+                    })
+                }
+            })
             .catch(error => console.log('error', error))
     }
 
-    handleInputChange(event) {
-
-    }
-
-    handleSubmit = async (event) => {
-
+    // handleInputChange(event) {
+    //
+    // }
+    //
+    handleLogout = () => {
+        Cookies.remove('accessToken')
+        this.setState({
+            isLogin: false
+        })
     }
 
     render() {
         return (
             <>
-                <button onClick={this.handleSubmit}>Получить посты</button>
+                {
+                    !this.state.isLogin ?
+                        <Redirect to="login" />
+                        :
+                        <div>
+                            Я залогинен получается
+                            <button onClick={this.handleLogout}>Logout</button>
+                        </div>
+                }
             </>
         )
     }

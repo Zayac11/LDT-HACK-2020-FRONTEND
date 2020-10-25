@@ -1,26 +1,12 @@
 import React from 'react';
 import * as axios from "axios";
-import DjangoCSRFToken from 'django-react-csrftoken'
 import {Redirect} from "react-router-dom";
-
-axios.defaults.xsrfCookieName = 'csrftoken';
-axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-
-let instance = axios.create({
-    // withCredentials: true,
-    baseURL: 'http://127.0.0.1:8000',
-
-})
 
 class Register extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            // isGoing: true,
-            // numberOfGuests: 2,
-            name: "",
-            pass: "",
             isRegister: false,
         };
 
@@ -53,7 +39,7 @@ class Register extends React.Component {
 
         await fetch("http://127.0.0.1:8000/auth/users/", requestOptions)
             .then(response => {
-                                response.json()
+                response.json()
                 this.setState({
                     isRegister: true
                 })
@@ -61,24 +47,7 @@ class Register extends React.Component {
             .then(result => {
                 console.log(result)
             })
-            // .then(() => {
-            //     fetch("http://127.0.0.1:8000/auth/jwt/create/", requestOptions)
-            //         .then(response => response.json())
-            //         .then(result => {
-            //
-            //             this.setState({
-            //                 resultToken: result.refresh,
-            //                 accessToken: result.access,
-            //                 login: true
-            //             })
-            //         })
-            //         .then( () => {event.preventDefault()} )
-            //         .catch(error => console.log('error', error))
-            //
-            // })
             .catch(error => console.log('error', error));
-        // console.log(this.state.resultToken)
-        // console.log(this.state.accessToken)
         // event.preventDefault();
     }
 
