@@ -2,6 +2,7 @@ import React from 'react';
 import * as axios from "axios";
 import DjangoCSRFToken from 'django-react-csrftoken'
 import {Redirect} from "react-router-dom";
+import Cookies from 'js-cookie'
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -50,7 +51,7 @@ class Login extends React.Component {
         let requestOptions = {
             method: 'POST',
             body: formdata,
-            // redirect: 'follow'
+            redirect: 'follow'
         };
 
         await fetch("http://127.0.0.1:8000/auth/jwt/create/", requestOptions)
@@ -58,41 +59,15 @@ class Login extends React.Component {
             .then(result => {
                 console.log(result)
                 this.setState({
-                    resultToken: result.refresh,
+                    refreshToken: result.refresh,
                     accessToken: result.access,
-                    // isLogin: true
+                    isLogin: true,
                 })
+                Cookies.set('accessToken', result.access)
             })
             .catch(error => console.log('error', error));
 
         // event.preventDefault();
-
-        // console.log(this.state.resultToken)
-        // console.log(this.state.accessToken)
-
-        // let axios = require('axios');
-        // let FormData = require('form-data');
-        // let data = new FormData();
-        // data.append('username', this.state.name);
-        // data.append('password', this.state.pass);
-        //
-        // let config = {
-        //     method: 'post',
-        //     url: 'http://127.0.0.1:8000/auth/jwt/create/',
-        //     headers: {
-        //         ...data.getHeaders()
-        //     },
-        //     data : data
-        // };
-        //
-        // axios(config)
-        //     .then(function (response) {
-        //         console.log(JSON.stringify(response.data));
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
-
     }
 
     render() {
@@ -126,5 +101,3 @@ class Login extends React.Component {
 }
 
 export default Login;
-
-

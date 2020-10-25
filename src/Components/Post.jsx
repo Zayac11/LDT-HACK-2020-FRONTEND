@@ -1,5 +1,5 @@
 import React from 'react';
-import * as axios from "axios";
+import Cookies from 'js-cookie'
 
 class Post extends React.Component {
 
@@ -14,8 +14,9 @@ class Post extends React.Component {
     }
 
     componentDidMount() {
+        const accessToken = 'JWT ' + Cookies.get('accessToken')
         let myHeaders = new Headers();
-        myHeaders.append("Authorization", "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjAzNzEwMDA0LCJqdGkiOiIwNTNhMzdmNjc4NWQ0ZmY1YWQ5YjYyYjEwOWM0YjVkMyIsInVzZXJfaWQiOjN9.FQiY2b9AFnR5dWt66fP5OhMopEluh_tQ4dgGEd0eL_c");
+        myHeaders.append("Authorization", accessToken);
 
         // let formdata = new FormData();
 
