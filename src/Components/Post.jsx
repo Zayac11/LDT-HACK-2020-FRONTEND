@@ -31,7 +31,7 @@ class Post extends React.Component {
             .then(result => {
                 console.log(result)
                 if(result.code) {
-                    this.setState({
+                    this.setState({ //Если пришла ошибка 401
                         isLogin: false
                     })
                 }
