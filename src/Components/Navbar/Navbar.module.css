@@ -1,0 +1,38 @@
+.outer {
+    width: 100%;
+    background-color: #E42B66;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    width: 1600px;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.name {
+    display: flex;
+    align-items: center;
+}
+
+.name div {
+    color: white;
+    font-size: 24px;
+}
+
+.name img {
+    width: 64px;
+    display: block;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 20px;
+}
+
+.user button {
+    margin-left: 10px;
+}

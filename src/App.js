@@ -2,21 +2,18 @@ import React from 'react';
 import './App.css';
 import Register from "./Components/Register";
 import {Route} from "react-router-dom";
-import Textarea from "./Components/Textarea";
 import Login from "./Components/Login";
-import Post from "./Components/Post";
-import Container from "./Components/Container";
+import Container from "./Components/Container/Container";
+import Main from "./Components/Main/Main";
 
 function App() {
     return (
         <div className="App">
-            <Route path='/register' render={ () => <Register />} />
-            <Route path='/login' render={ () => <Login />} />
-            {/*<Route path='/textarea' render={ () => <Textarea />} />*/}
-            {/*<Route path='/post' render={ () => <Post />} />*/}
+            <Route exact path='/' render={ () => <Main />} />
+            <Route exact path='/main' render={ () => <Main />} />
+            <Route exact path='/register' render={ () => <Register />} />
+            <Route exact path='/login' render={ () => <Login />} />
             <Container  />
-            {/*<Register />*/}
-
         </div>
     );
 }

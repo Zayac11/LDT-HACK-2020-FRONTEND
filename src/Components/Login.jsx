@@ -1,6 +1,7 @@
 import React from 'react';
 import {Redirect} from "react-router-dom";
-import Cookies from 'js-cookie'
+import {connect} from "react-redux";
+import {login} from "../redux/auth-reducer";
 
 class Login extends React.Component {
 
@@ -11,9 +12,6 @@ class Login extends React.Component {
             // numberOfGuests: 2,
             name: "",
             pass: "",
-            refreshToken: "",
-            accessToken: "",
-            isLogin: false
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -30,43 +28,42 @@ class Login extends React.Component {
         });
     }
 
-    handleSubmit = async (event) => {
+    handleSubmit = (event) => {
         // alert('Отправленное имя: ' + this.state.name + '\n' + 'Password: ' + this.state.pass);
 
-        let formdata = new FormData();
-        formdata.append("username", this.state.name);
-        formdata.append("password", this.state.pass);
-
-        let requestOptions = {
-            method: 'POST',
-            body: formdata,
-            redirect: 'follow'
-        };
-
-        await fetch("http://127.0.0.1:8000/auth/jwt/create/", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                console.log(result)
-                Cookies.set('accessToken', result.access, { expires: 7 })
-                this.setState({
-                    refreshToken: result.refresh,
-                    accessToken: result.access,
-                    isLogin: true,
-                })
-            })
-            .catch(error => console.log('error', error));
+        // let formdata = new FormData();
+        // formdata.append("username", this.state.name);
+        // formdata.append("password", this.state.pass);
+        //
+        // let requestOptions = {
+        //     method: 'POST',
+        //     body: formdata,
+        //     redirect: 'follow'
+        // };
+        //
+        // await fetch("http://127.0.0.1:8000/auth/jwt/create/", requestOptions)
+        //     .then(response => response.json())
+        //     .then(result => {
+        //         console.log(result)
+        //         Cookies.set('accessToken', result.access, { expires: 7 })
+        //         this.setState({
+        //             isLogin: true,
+        //         })
+        //     })
+        //     .catch(error => console.log('error', error));
 
         // event.preventDefault();
+
+        this.props.login(this.state.name, this.state.pass)
     }
 
     render() {
         return (
             <>
             {
-                this.state.isLogin ?
+                this.props.isLogin ?
                     <Redirect to="post" />
                     :
-                    // <DjangoCSRFToken/>
                     <div>
 
                         <label>
@@ -89,4 +86,10 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+let mapStateToProps = (state) => {
+    return{
+        isLogin: state.auth.isLogin
+    }
+}
+
+export default connect(mapStateToProps,{login})(Login);
