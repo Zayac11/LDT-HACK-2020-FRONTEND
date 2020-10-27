@@ -14,6 +14,21 @@ export const authAPI = {
                 // })
                 // .catch(error => console.log('error', error))
         )
+    },
+    initialize(requestOptions) {
+        return (
+            fetch("http://127.0.0.1:8000/api/demosnews/", requestOptions)
+                .then(response => response.json())
+                // .then(result => {
+                //     console.log(result)
+                //     if(result.code) {
+                //         this.setState({ //Если пришла ошибка 401
+                //             isLogin: false
+                //         })
+                //     }
+                // })
+                // .catch(error => console.log('error', error))
+        )
     }
 }
 export const taskAPI = {

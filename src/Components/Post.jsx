@@ -15,29 +15,29 @@ class Post extends React.Component {
         this.handleLogout = this.handleLogout.bind(this);
     }
 
-    componentDidMount() {
-        const accessToken = 'JWT ' + Cookies.get('accessToken')
-        let myHeaders = new Headers();
-        myHeaders.append("Authorization", accessToken);
-
-        let requestOptions = {
-            method: 'GET',
-            headers: myHeaders,
-            redirect: 'follow'
-        };
-
-        fetch("http://127.0.0.1:8000/api/demosnews/", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                console.log(result)
-                if(result.code) {
-                    this.setState({ //Если пришла ошибка 401
-                        isLogin: false
-                    })
-                }
-            })
-            .catch(error => console.log('error', error))
-    }
+    // componentDidMount() {
+    //     const accessToken = 'JWT ' + Cookies.get('accessToken')
+    //     let myHeaders = new Headers();
+    //     myHeaders.append("Authorization", accessToken);
+    //
+    //     let requestOptions = {
+    //         method: 'GET',
+    //         headers: myHeaders,
+    //         redirect: 'follow'
+    //     };
+    //
+    //     fetch("http://127.0.0.1:8000/api/demosnews/", requestOptions)
+    //         .then(response => response.json())
+    //         .then(result => {
+    //             console.log(result)
+    //             if(result.code) {
+    //                 this.setState({ //Если пришла ошибка 401
+    //                     isLogin: false
+    //                 })
+    //             }
+    //         })
+    //         .catch(error => console.log('error', error))
+    // }
 
     // handleInputChange(event) {
     //
