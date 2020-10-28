@@ -14,7 +14,8 @@ class SprintContainer extends React.Component{
 
 let mapStateToProps = (state) => {
     return {
-
+        sprints: state.sprintPage.sprints,
+        className: state.sprintPage.className
     };
 }
 
