@@ -6,7 +6,7 @@ class TheoryContainer extends React.Component{
     render() {
         return(
             <div>
-                <Theory theory={this.props.theory} />
+                <Theory theory={this.props.theory} code={this.props.code} />
             </div>
         )
     }
@@ -16,6 +16,7 @@ let mapStateToProps = (state) => {
 
     return {
         theory: state.sprintPage.task.theory,
+        code: state.sprintPage.task.theory,
     }
 }
 

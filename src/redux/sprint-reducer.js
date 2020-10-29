@@ -1,14 +1,14 @@
-import {sprintAPI} from "../Components/api/api";
+import {authAPI, sprintAPI, taskAPI} from "../Components/api/api";
+import Cookies from "js-cookie";
 
 const SET_SPRINTS = 'SET_SPRINTS'
 const SET_TASK = 'SET_TASK'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 
 let initialState = {
-    className: "10Б",
     name: "",
     sprints: [],
-    isFetching: false,
+    isFetching: true,
     // sprints: [
     //     {   name: "Python",
     //         task:[{
@@ -107,23 +107,33 @@ export const setSprints = (sprints, name) => ({type: SET_SPRINTS, sprints, name 
 export const setTask = (task) => ({type: SET_TASK, task})
 export const toggleIsFetching = (isFetch) => ({type: TOGGLE_IS_FETCHING, isFetch})
 
-export const getSprints = () => {
-    return (dispatch) => {
-        sprintAPI.getSprints()
-            .then(response => {
-                // console.log(response)
-                dispatch(setSprints(response.data.sprints, response.data.name))
-            })
+const getHeaders = () => {
+    const accessToken = 'Bearer  ' + Cookies.get('accessToken')
+    let myHeaders = new Headers();
+    myHeaders.append("Authorization", accessToken);
 
+    let requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+    return requestOptions
+}
+
+export const getSprints = (sprintId) => {
+    return async (dispatch) => {
+        let response = await sprintAPI.getSprints(getHeaders(), sprintId)
+            console.log(response)
+            dispatch(setSprints(response.sprints, response.name))
     }
 }
 export const getTask = (taskId) => {
     return (dispatch) => {
         dispatch(toggleIsFetching(true))
-        sprintAPI.getTask(taskId)
+        taskAPI.getTask(getHeaders(), taskId)
             .then(response => {
                 console.log(response)
-                dispatch(setTask(response.data))
+                dispatch(setTask(response))
                 dispatch(toggleIsFetching(false))
             })
     }

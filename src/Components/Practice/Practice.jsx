@@ -3,32 +3,28 @@ import Textarea from "../Textarea";
 import s from './Practice.module.css'
 
 const Practice = (props) => {
-    // debugger
-    // const code = props.task_detail[0].last_code
-    const code = ""
+    const task_detail = props.task.task_detail[0]
     return(
         <>
+
+
             <div>
-                Ну давай, сделай уже что-нибудь... *Постановка задачи*
+                {props.task.mission}
             </div>
             <div>
                 {/*{props.tests.map(t => <TestItem key={t.id} input={t.input} output={t.output} />)}*/}
             </div>
             {/*Сюда по-хорошему нужно в пропсах передавать код, который ученик мог вводить до этого*/}
-            <div>
-                <select name="languages"> {/*Нужно будет передавать callback'и из классового компонента, а так же локальный state в пропсах*/}
-                    <option value="">Python</option>
-                    <option value="">C++</option>
-                    <option value="">Java</option>
-                    <option value="">Pascal</option>
-                    <option value="">C</option>
-                </select>
-            </div>
+            <select name="languages"> {/*Нужно будет передавать callback'и из классового компонента, а так же локальный state в пропсах*/}
+                {
+                    props.task.languages.map(l => <Selection key={l.id} value={l} />)
+                }
+            </select>
             <Textarea
-                code={code}
+                code={task_detail.last_code}
             />
             {
-                props.correctness
+                task_detail.is_done
                 ?   <div className={s.done}>
                         Решено верно
                     </div>
@@ -53,6 +49,12 @@ const TestItem = (props) => {
                 {props.output}
             </div>
         </div>
+    )
+}
+
+const Selection = (props) => {
+    return(
+        <option value="">{props.value}</option>
     )
 }
 

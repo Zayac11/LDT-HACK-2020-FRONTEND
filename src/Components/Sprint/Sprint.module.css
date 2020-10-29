@@ -18,6 +18,11 @@
 }
 
 .classNumber {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
     margin: 0 auto;
-    font-size: 28px;
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
 }

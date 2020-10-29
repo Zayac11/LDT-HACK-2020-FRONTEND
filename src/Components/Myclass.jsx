@@ -1,26 +1,36 @@
 import React from 'react';
-import {setSs} from "../redux/auth-reducer";
+import {getClass} from "../redux/auth-reducer";
 import {connect} from "react-redux";
+import {NavLink} from "react-router-dom";
 
 class Myclass extends React.Component{
 
     componentDidMount() {
-        this.props.setSs()
+        this.props.getClass()
     }
 
     render() {
         return(
-            <div>
-                Joma
-            </div>
+            <>
+                {
+                    this.props.classData.map(c =>
+                    <div key={c.id}>
+                        <div>
+                            {c.name}
+                        </div>
+                        <NavLink to={`/course/${c.id}`}>Перейди на этот курс</NavLink>
+                    </div>
+                    )
+                }
+            </>
         )
     }
 }
 
 let mapStateToProps = (state) => {
     return{
-
+        classData: state.auth.classData
     }
 }
 
-export default connect(mapStateToProps,{setSs})(Myclass)
+export default connect(mapStateToProps,{getClass})(Myclass)

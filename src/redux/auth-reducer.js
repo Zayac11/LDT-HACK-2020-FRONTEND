@@ -3,12 +3,11 @@ import Cookies from "js-cookie";
 
 const SET_USER_DATA = 'SET_USER_DATA';
 const SET_AUTH = 'SET_AUTH';
-const SET_AASS = 'SET_AASS';
+const SET_CLASS_DATA = 'SET_CLASS_DATA';
 
 let initialState = {
     isLogin: true, //Нужно будет поменять на false
-    id: '',
-    name: '',
+    classData: [],
 }
 
 const authReducer = (state = initialState, action) => {
@@ -23,6 +22,11 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 isLogin: action.isLogin,
             }
+        case SET_CLASS_DATA:
+            return {
+                ...state,
+                classData: [...action.classData]
+            }
 
         default:
             return state;
@@ -31,7 +35,7 @@ const authReducer = (state = initialState, action) => {
 
 export const setAuthUserData = (isLogin) => ({type: SET_USER_DATA, payload: {isLogin: isLogin}})
 export const setAuth = (isLogin) => ({type: SET_USER_DATA, payload: {isLogin: isLogin}})
-export const setAss = (id, name) => ({type: SET_AASS, id, name})
+export const setClassData = (classData) => ({type: SET_CLASS_DATA, classData})
 
 const getOptions = (username, password) => {
     let formdata = new FormData();
@@ -46,10 +50,23 @@ const getOptions = (username, password) => {
     return requestOptions
 }
 
+const getHeaders = () => {
+    const accessToken = 'Bearer  ' + Cookies.get('accessToken')
+    let myHeaders = new Headers();
+    myHeaders.append("Authorization", accessToken);
+
+    let requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+    return requestOptions
+}
+
 export const login = (username, password) => {
     return async (dispatch) => {
         let response = await authAPI.login(getOptions(username, password))
-        console.log(response)
+        // console.log(response)
         Cookies.set('accessToken', response.access, { expires: 7 })
         dispatch(setAuthUserData(true))
     }
@@ -63,39 +80,20 @@ export const logout = () => {
 
 export const initialized = () => {
     return async (dispatch) => {
-        const accessToken = 'Bearer  ' + Cookies.get('accessToken')
-        let myHeaders = new Headers();
-        myHeaders.append("Authorization", accessToken);
-
-        let requestOptions = {
-            method: 'GET',
-            headers: myHeaders,
-            redirect: 'follow'
-        };
-
-        let response = await authAPI.initialize(requestOptions)
+        let response = await authAPI.getClasses(getHeaders())
         console.log(response)
         if(response.code) {
             dispatch(setAuth(false))
         }
+        dispatch(setClassData(response))
     }
 }
 
-export const setSs = () => {
+export const getClass = () => {
     return async (dispatch) => {
-        const accessToken = 'Bearer  ' + Cookies.get('accessToken')
-        let myHeaders = new Headers();
-        myHeaders.append("Authorization", accessToken);
-
-        let requestOptions = {
-            method: 'GET',
-            headers: myHeaders,
-            redirect: 'follow'
-        };
-        let response = await authAPI.ass(requestOptions)
+        let response = await authAPI.getClasses(getHeaders())
         console.log(response)
-        let otvet = await authAPI.sass(requestOptions)
-        console.log(otvet)
+        dispatch(setClassData(response))
     }
 }
 

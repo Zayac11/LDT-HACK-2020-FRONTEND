@@ -7,7 +7,7 @@ import Textarea from "../Textarea";
 import TaskContainer from "../Task/TaskContainer";
 import News from "../News";
 import Footer from "../Footer/Footer";
-import Myclass from "../Myclass";
+import MyClass from "../Myclass";
 
 class Container extends React.Component {
 
@@ -21,8 +21,8 @@ class Container extends React.Component {
                         <>
                             <NavbarContainer />
                             <Switch>
-                                <Route exact path='/course' render={ () => <SprintContainer />} />
-                                <Route path='/my_classes' render={ () => <Myclass />} />
+                                <Route exact path='/course/:id' render={ () => <SprintContainer />} />
+                                <Route path='/my_classes' render={ () => <MyClass />} />
                                 <Route path='/textarea' render={ () => <Textarea />} />
                                 <Route path='/task/:id' render={ () => <TaskContainer />} />
                                 {/*Тут будет 404 ошибка*/}

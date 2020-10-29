@@ -3,13 +3,14 @@ import s from './Sprint.module.css'
 import SprintItem from "./SprintItem";
 
 const Sprint = (props) => {
-
     return(
         <div className={s.outer}>
             <div className={s.container} >
-                <div className={s.classNumber}>
-                    {props.className}
-                </div>
+                {props.classData.map(c =>
+                    <div key={c.id} className={s.classNumber}>
+                        {c.name}
+                    </div>
+                )}
                 <div className={s.inner}>
                     {
                         // props.sprints.map( t => t.task.map(m => <SprintItem key={m.id} id={m.id} name={m.status} status={m.status} />))

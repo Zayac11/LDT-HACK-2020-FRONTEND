@@ -10,7 +10,6 @@ const SprintItem = (props) => {
         const el = content
         $(el.current).slideToggle('slow');
     }
-
     return(
         <div className={s.outer}>
             <div className={s.top}>

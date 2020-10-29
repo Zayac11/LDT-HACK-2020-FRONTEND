@@ -2,10 +2,14 @@ import React from 'react';
 import {connect} from "react-redux";
 import Sprint from "./Sprint";
 import {getSprints} from "../../redux/sprint-reducer";
+import {withRouter} from "react-router-dom";
 
 class SprintContainer extends React.Component{
     componentDidMount() {
-        this.props.getSprints()
+
+        let sprintId = this.props.match.params.id
+
+        this.props.getSprints(sprintId)
     }
 
     render() {
@@ -20,8 +24,10 @@ class SprintContainer extends React.Component{
 let mapStateToProps = (state) => {
     return {
         sprints: state.sprintPage.sprints,
-        className: state.sprintPage.className
+        classData: state.auth.classData,
     };
 }
 
-export default connect(mapStateToProps,{getSprints})(SprintContainer)
+let WithSprintUrl = withRouter(SprintContainer);
+
+export default connect(mapStateToProps,{getSprints})(WithSprintUrl)

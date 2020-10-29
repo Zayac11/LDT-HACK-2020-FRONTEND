@@ -16,36 +16,25 @@ export const authAPI = {
                 .then(response => response.json())
         )
     },
-    initialize(requestOptions) {
-        return (
-            fetch("http://127.0.0.1:8000/api/my_classes", requestOptions)
-                .then(response => response.json())
-        )
-    },
-    ass(requestOptions) {
+    getClasses(requestOptions) { //Метод для показа всех доступных классов
         return(
             fetch('http://127.0.0.1:8000/api/my_classes', requestOptions)
                 .then(response => response.json())
         )
-    },
-    sass(requestOptions) {
-        return(
-            fetch('http://127.0.0.1:8000/api/classes/4/', requestOptions)
-                .then(response => {
-                    debugger
-                    response.json()
-                })
-        )
     }
 }
-export const taskAPI = {
 
-}
-export const sprintAPI = {
-    getSprints(){
-        return instance.get('api/course/')
-    },
-    getTask(taskId){
-        return instance.get(`api/task/${taskId}/`)
+export const taskAPI = {
+    getTask(requestOptions,taskId){
+        return fetch(`http://127.0.0.1:8000/api/task/${taskId}/`, requestOptions)
+            .then(response => response.json())
     }
+}
+
+export const sprintAPI = {
+    getSprints(requestOptions, sprintId){
+        return fetch(`http://127.0.0.1:8000/api/classes/${sprintId}/`, requestOptions)
+            .then(response => response.json())
+    },
+
 }

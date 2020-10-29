@@ -18,7 +18,6 @@ class TaskContainer extends React.Component{
             {
                 this.props.isFetching ? null : <Task {...this.props}/>
             }
-
             </>
         )
     }
@@ -27,7 +26,8 @@ class TaskContainer extends React.Component{
 let mapStateToProps = (state) => {
     return {
         task: state.sprintPage.task,
-        isFetching: state.sprintPage.isFetching
+        isFetching: state.sprintPage.isFetching,
+        classData: state.auth.classData,
     };
 }
 

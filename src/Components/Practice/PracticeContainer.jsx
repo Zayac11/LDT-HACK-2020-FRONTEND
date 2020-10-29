@@ -6,10 +6,9 @@ import {getTask} from "../../redux/sprint-reducer";
 class PracticeContainer extends React.Component{
 
     render() {
-        debugger
         return(
             <div>
-                <Practice correctness={this.props.correctness} code={this.props.code} tests={this.props.tests}/>
+                <Practice task={this.props.task}/>
             </div>
         )
     }
@@ -17,10 +16,7 @@ class PracticeContainer extends React.Component{
 
 let mapStateToProps = (state) => {
     return {
-        // correctness: state.sprintPage.task.correctness,
-        code: state.sprintPage.task.task_detail[0].last_code,
-        // tests: state.sprintPage.task.tests,
-
+        task: state.sprintPage.task,
     }
 }
 
