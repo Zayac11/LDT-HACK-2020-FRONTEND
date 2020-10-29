@@ -22,7 +22,7 @@ const SprintItem = (props) => {
                     Появление
                 </button>
             </div>
-            <div ref={content} className={s.content}>
+            <div ref={content} className={s.content}> {/*Поле спринта, в котором отрисовывается поле таска*/}
                 {props.task.map(m => <SprintTask key={m.id} id={m.id} name={m.name} status={m.status} />)}
             </div>
         </div>
@@ -35,7 +35,7 @@ const SprintTask = (props) => {
         <div className={s.container} >
             <div className={s.taskName}>{props.name}</div>
 
-            <NavLink to={`/sprints/${props.id}`} className={s.link}> Перейти к таску </NavLink>
+            <NavLink to={`/course/${props.id}`} className={s.link}> Перейти к таску </NavLink>
 
             {
                 props.status ?

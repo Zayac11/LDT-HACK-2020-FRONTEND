@@ -1,0 +1,35 @@
+.outer {
+    background-color: #ccc;
+}
+
+.container {
+    width: 1600px;
+    background-color: #fff;
+    margin: 0 auto;
+}
+
+.nav {
+    display: flex;
+}
+
+.nav a {
+    display: block;
+    width: 50%;
+    color: black;
+    /*background-color: ;*/
+    padding: 10px;
+    text-align: center;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.nav a:hover {
+    background-color: #ddd;
+}
+
+.nav .active {
+    width: 200%;
+    background-color: lightgreen;
+}
+

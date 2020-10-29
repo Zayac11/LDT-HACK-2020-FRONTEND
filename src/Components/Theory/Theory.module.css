@@ -1,0 +1,22 @@
+.outer {
+
+}
+
+.container {
+
+}
+
+.theory {
+    font-size: 20px;
+    text-align: center;
+    border: 2px solid black;
+    margin: 10px auto;
+    padding: 10px;
+}
+
+.testItem {
+    border: 2px solid black;
+    margin: 10px auto;
+    padding: 10px;
+}
+

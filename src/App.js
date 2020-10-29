@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Register from "./Components/Register";
-import {Route} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import Login from "./Components/Login";
 import Container from "./Components/Container/Container";
 import Main from "./Components/Main/Main";
@@ -17,11 +17,15 @@ class App extends React.Component{
     render() {
         return (
             <div className="App">
-                <Route exact path='/' render={ () => <Main />} />
+                <Switch>
+                    <Route exact path='/' render={ () => <Main />} />
+                    <Container  />
+                </Switch>
                 <Route exact path='/main' render={ () => <Main />} />
                 <Route exact path='/register' render={ () => <Register />} />
                 <Route exact path='/login' render={ () => <Login />} />
-                <Container  />
+
+
             </div>
         );
     }

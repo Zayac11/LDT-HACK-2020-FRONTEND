@@ -1,3 +1,4 @@
+const SET_TASK = 'SET_TASK'
 
 let initialState = {
     className: "10Б",
@@ -8,6 +9,7 @@ let initialState = {
                 id: 0,
                 name: "Python1",
                 status: true
+
             },
             {
 
@@ -47,12 +49,33 @@ let initialState = {
 
             }]
         },
-    ]
+    ],
+    task: {
+        id: 0,
+        name: "Python1",
+        status: true,
+        theory: "Чтобы сделать то, надо здать теорию, теория, теория, тут теория",
+        tests: [
+            {
+              input: "2 + 3",
+              output: 5
+            },
+            {
+              input: "22 + 32",
+              output: 54
+            },
+        ],
+        correctness: true
+    }
 }
 
 const sprintReducer = (state = initialState, action) => {
     switch (action.type) {
-
+        case SET_TASK:
+            return {
+                ...state,
+                task: action.task,
+            }
         default:
             return state;
     }

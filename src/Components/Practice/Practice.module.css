@@ -1,0 +1,9 @@
+.done {
+    color: #4caf50;
+    font-size: 24px;
+}
+
+.fail {
+    color: red;
+    font-size: 24px;
+}

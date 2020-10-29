@@ -1,10 +1,12 @@
 import React from 'react';
-import {Redirect, Route} from "react-router-dom";
-import News from "../News";
-import Textarea from "../Textarea";
+import {Redirect, Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
 import NavbarContainer from "../Navbar/NavbarContainer";
 import SprintContainer from "../Sprint/SprintContainer";
+import Textarea from "../Textarea";
+import TaskContainer from "../Task/TaskContainer";
+import News from "../News";
+import Footer from "../Footer/Footer";
 
 class Container extends React.Component {
 
@@ -17,9 +19,14 @@ class Container extends React.Component {
                         :
                         <>
                             <NavbarContainer />
-                            <Route path='/sprint' render={ () => <SprintContainer />} />
-                            <Route path='/news' render={ () => <News />} />
-                            <Route path='/textarea' render={ () => <Textarea />} />
+                            <Switch>
+                                <Route exact path='/course' render={ () => <SprintContainer />} />
+                                <Route path='/textarea' render={ () => <Textarea />} />
+                                <Route path='/course/:id' render={ () => <TaskContainer />} />
+
+                                <Route path='*' render={ () => <News />} />
+                            </Switch>
+                            <Footer />
                         </>
                 }
             </>
