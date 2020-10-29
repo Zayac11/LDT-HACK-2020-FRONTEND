@@ -62,7 +62,7 @@ class Login extends React.Component {
             <>
             {
                 this.props.isLogin ?
-                    <Redirect to="course" />
+                    <Redirect to="/my_classes" />
                     :
                     <div>
 

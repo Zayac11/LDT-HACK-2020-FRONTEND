@@ -3,9 +3,12 @@ import Cookies from "js-cookie";
 
 const SET_USER_DATA = 'SET_USER_DATA';
 const SET_AUTH = 'SET_AUTH';
+const SET_AASS = 'SET_AASS';
 
 let initialState = {
-    isLogin: true,
+    isLogin: true, //Нужно будет поменять на false
+    id: '',
+    name: '',
 }
 
 const authReducer = (state = initialState, action) => {
@@ -28,6 +31,7 @@ const authReducer = (state = initialState, action) => {
 
 export const setAuthUserData = (isLogin) => ({type: SET_USER_DATA, payload: {isLogin: isLogin}})
 export const setAuth = (isLogin) => ({type: SET_USER_DATA, payload: {isLogin: isLogin}})
+export const setAss = (id, name) => ({type: SET_AASS, id, name})
 
 const getOptions = (username, password) => {
     let formdata = new FormData();
@@ -59,7 +63,7 @@ export const logout = () => {
 
 export const initialized = () => {
     return async (dispatch) => {
-        const accessToken = 'JWT ' + Cookies.get('accessToken')
+        const accessToken = 'Bearer  ' + Cookies.get('accessToken')
         let myHeaders = new Headers();
         myHeaders.append("Authorization", accessToken);
 
@@ -74,6 +78,24 @@ export const initialized = () => {
         if(response.code) {
             dispatch(setAuth(false))
         }
+    }
+}
+
+export const setSs = () => {
+    return async (dispatch) => {
+        const accessToken = 'Bearer  ' + Cookies.get('accessToken')
+        let myHeaders = new Headers();
+        myHeaders.append("Authorization", accessToken);
+
+        let requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+        let response = await authAPI.ass(requestOptions)
+        console.log(response)
+        let otvet = await authAPI.sass(requestOptions)
+        console.log(otvet)
     }
 }
 

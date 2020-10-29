@@ -1,8 +1,13 @@
 import React from 'react';
 import {connect} from "react-redux";
 import Sprint from "./Sprint";
+import {getSprints} from "../../redux/sprint-reducer";
 
 class SprintContainer extends React.Component{
+    componentDidMount() {
+        this.props.getSprints()
+    }
+
     render() {
         return(
             <>
@@ -19,4 +24,4 @@ let mapStateToProps = (state) => {
     };
 }
 
-export default connect(mapStateToProps,{})(SprintContainer)
+export default connect(mapStateToProps,{getSprints})(SprintContainer)

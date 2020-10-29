@@ -13,7 +13,7 @@ const Sprint = (props) => {
                 <div className={s.inner}>
                     {
                         // props.sprints.map( t => t.task.map(m => <SprintItem key={m.id} id={m.id} name={m.status} status={m.status} />))
-                        props.sprints.map( t => <SprintItem key={t.id} task={t.task} name={t.name} />)
+                        props.sprints.map(t => <SprintItem key={t.id} tasks={t.tasks} name={t.name} />)
                     }
                 </div>
             </div>

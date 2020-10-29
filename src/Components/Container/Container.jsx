@@ -7,6 +7,7 @@ import Textarea from "../Textarea";
 import TaskContainer from "../Task/TaskContainer";
 import News from "../News";
 import Footer from "../Footer/Footer";
+import Myclass from "../Myclass";
 
 class Container extends React.Component {
 
@@ -15,15 +16,16 @@ class Container extends React.Component {
             <>
                 {
                     !this.props.isLogin ?
-                        <Redirect to="login" />
+                        <Redirect to="/login" />
                         :
                         <>
                             <NavbarContainer />
                             <Switch>
                                 <Route exact path='/course' render={ () => <SprintContainer />} />
+                                <Route path='/my_classes' render={ () => <Myclass />} />
                                 <Route path='/textarea' render={ () => <Textarea />} />
-                                <Route path='/course/:id' render={ () => <TaskContainer />} />
-
+                                <Route path='/task/:id' render={ () => <TaskContainer />} />
+                                {/*Тут будет 404 ошибка*/}
                                 <Route path='*' render={ () => <News />} />
                             </Switch>
                             <Footer />
