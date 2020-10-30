@@ -20,9 +20,9 @@ class App extends React.Component{
 
                 <Switch>
                     <Route exact path='/' render={ () => <Main />} />
+                    <Route exact path='/main' render={ () => <Main />} />
                     <Container  />
                 </Switch>
-                <Route exact path='/main' render={ () => <Main />} />
                 <Route exact path='/register' render={ () => <Register />} />
                 <Route exact path='/login' render={ () => <Login />} />
 

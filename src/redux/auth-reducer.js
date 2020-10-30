@@ -6,7 +6,7 @@ const SET_AUTH = 'SET_AUTH';
 const SET_CLASS_DATA = 'SET_CLASS_DATA';
 
 let initialState = {
-    isLogin: true, //Нужно будет поменять на false
+    isLogin: false, //Нужно будет поменять на false
     classData: [],
 }
 
@@ -82,10 +82,10 @@ export const initialized = () => {
     return async (dispatch) => {
         let response = await authAPI.getClasses(getHeaders())
         console.log(response)
-        if(response.code) {
-            dispatch(setAuth(false))
+        if(!response.code) {
+            dispatch(setAuth(true))
+            dispatch(setClassData(response))
         }
-        dispatch(setClassData(response))
     }
 }
 

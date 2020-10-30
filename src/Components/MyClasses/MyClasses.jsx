@@ -8,7 +8,7 @@ import '../../Common/style.css'
 class MyClasses extends React.Component{
 
     componentDidMount() {
-        this.props.getClass()
+        // this.props.getClass()
     }
 
     render() {
