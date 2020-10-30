@@ -8,6 +8,7 @@ import TaskContainer from "../Task/TaskContainer";
 import Footer from "../Footer/Footer";
 import MyClasses from "../MyClasses/MyClasses";
 import Error404 from "../404/Error404";
+import CreateTaskContainer from "../CreateTask/CreateTaskContainer";
 
 class Container extends React.Component {
 
@@ -25,6 +26,7 @@ class Container extends React.Component {
                                 <Route path='/my_classes' render={ () => <MyClasses />} />
                                 <Route path='/textarea' render={ () => <Textarea />} />
                                 <Route path='/task/:id' render={ () => <TaskContainer />} />
+                                <Route path='/create_task/:id' render={ () => <CreateTaskContainer />} />
                                 <Route path='*' render={ () => <Error404 />} />
                             </Switch>
                             <Footer />

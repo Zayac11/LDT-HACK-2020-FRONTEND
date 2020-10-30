@@ -30,10 +30,11 @@ const SprintItem = (props) => {
                         props.tasks ?
                         props.tasks.map(m => <SprintTask key={m.id} id={m.id} name={m.name} status={m.task_detail[0]} />
                         ):
-                        <div>
+                        <div className={s.noTask}>
                             Нет заданий
                         </div>
                     }
+                    <NavLink to={`/create_task/${props.sprintId}`} className={s.addTask}>Добавить задание</NavLink>
                 </div>
             </div>
         </>
@@ -44,7 +45,7 @@ const SprintTask = (props) => {
     return(
         <div className={s.row}>
             {
-                props.status === undefined || props.status === false ?
+                props.status === undefined || props.status.is_done === false ?
                     <div className={s.fail}>
                         <img src={cross} alt="done"/>
                     </div> :

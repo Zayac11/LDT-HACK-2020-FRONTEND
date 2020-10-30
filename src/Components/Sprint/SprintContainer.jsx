@@ -25,15 +25,16 @@ class SprintContainer extends React.Component {
         });
     }
     handleSubmit() {
-        this.props.addSprint(this.state.sprintText, this.props.sprints.length + 1)
+        this.props.addSprint(this.state.sprintText, this.props.sprints.length + 1) //Отсылаем на сервер и в гет запросе получаем новый id для отображения и перехода
         this.setState({
             sprintText: ""
         })
     }
     componentDidMount() {
         let sprintId = this.props.match.params.id //id класса, а не спринта
-        this.props.getSprints(sprintId)
-
+        if(!this.props.sprints.length > 0) {
+            this.props.getSprints(sprintId)
+        }
     }
 
     render() {

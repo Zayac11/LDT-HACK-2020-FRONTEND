@@ -5,7 +5,7 @@ import s from './Footer.module.css'
 const Footer = (props) => {
     return(
         <div className={s.container}>
-            powered by dev.gang
+            Powered by Dev.gang
         </div>
     )
 }
