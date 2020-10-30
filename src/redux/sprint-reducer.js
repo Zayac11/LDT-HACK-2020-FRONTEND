@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 const SET_SPRINTS = 'SET_SPRINTS'
 const SET_TASK = 'SET_TASK'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
+const ADD_SPRINT = 'ADD_SPRINT'
 
 let initialState = {
     name: "",
@@ -98,6 +99,17 @@ const sprintReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetch,
             }
+        case ADD_SPRINT:
+
+            let newSprint = {
+                id: action.sprintId,
+                name: action.sprintName,
+                task: []
+            }
+            return {
+                ...state,
+                sprints: [...state.sprints, newSprint],
+            }
         default:
             return state;
     }
@@ -106,6 +118,7 @@ const sprintReducer = (state = initialState, action) => {
 export const setSprints = (sprints, name) => ({type: SET_SPRINTS, sprints, name })
 export const setTask = (task) => ({type: SET_TASK, task})
 export const toggleIsFetching = (isFetch) => ({type: TOGGLE_IS_FETCHING, isFetch})
+export const addSprint = (sprintName, sprintId) => ({type: ADD_SPRINT, sprintName, sprintId})
 
 const getHeaders = () => {
     const accessToken = 'Bearer  ' + Cookies.get('accessToken')

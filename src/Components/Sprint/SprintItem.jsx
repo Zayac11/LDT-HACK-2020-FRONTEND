@@ -13,21 +13,30 @@ const SprintItem = (props) => {
         $(el.current).slideToggle('slow');
     }
     return(
-        <div className={s.outer}>
-            <div className={s.top}>
-                <div>
-                    {props.name}
-                </div>
-                <div onClick={tasksContent} className={s.arrow}>
-                    <span className={s.arrowLeft}></span>
-                    <span className={s.arrowRight}></span>
-                </div>
-            </div>
-            <div ref={content} className={s.content}> {/*Поле спринта, в котором отрисовывается поле таска*/}
-                {props.tasks.map(m => <SprintTask key={m.id} id={m.id} name={m.name} status={m.task_detail[0]} />)}
-            </div>
-        </div>
+        <>
 
+            <div className={s.outer}>
+                <div className={s.top}>
+                    <div>
+                        {props.name}
+                    </div>
+                    <div onClick={tasksContent} className={s.arrow}>
+                        <span className={s.arrowLeft}></span>
+                        <span className={s.arrowRight}></span>
+                    </div>
+                </div>
+                <div ref={content} className={s.content}> {/*Поле спринта, в котором отрисовывается поле таска*/}
+                    {
+                        props.tasks ?
+                        props.tasks.map(m => <SprintTask key={m.id} id={m.id} name={m.name} status={m.task_detail[0]} />
+                        ):
+                        <div>
+                            Нет заданий
+                        </div>
+                    }
+                </div>
+            </div>
+        </>
     )
 }
 

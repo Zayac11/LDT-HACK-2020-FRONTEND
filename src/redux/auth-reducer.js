@@ -1,35 +1,36 @@
 import {authAPI} from "../Components/api/api";
 import Cookies from "js-cookie";
 
-const SET_USER_DATA = 'SET_USER_DATA';
 const SET_AUTH = 'SET_AUTH';
 const SET_CLASS_DATA = 'SET_CLASS_DATA';
 const SET_INITIALIZED = 'SET_INITIALIZED';
+const SET_TEACHER = 'SET_TEACHER';
 
 let initialState = {
     isLogin: false, //Нужно будет поменять на false
     classData: [],
-    isInitialized: false
+    isInitialized: false,
+    isTeacher: true,
 }
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_USER_DATA:
-            return {
-                ...state,
-                ...action.payload,
-            }
-        case SET_AUTH:
+        case SET_AUTH: //Залогинен ли пользователь
             return {
                 ...state,
                 isLogin: action.isLogin,
             }
-        case SET_INITIALIZED:
+        case SET_INITIALIZED: //Инициализировалось ли приложение
             return {
                 ...state,
                 isInitialized: true,
             }
-        case SET_CLASS_DATA:
+        case SET_TEACHER: //Является ли пользователь учителем
+            return {
+                ...state,
+                isTeacher: true,
+            }
+        case SET_CLASS_DATA: //Установка информации о классах
             return {
                 ...state,
                 classData: [...action.classData]
@@ -40,10 +41,11 @@ const authReducer = (state = initialState, action) => {
     }
 }
 
-export const setAuthUserData = (isLogin) => ({type: SET_USER_DATA, payload: {isLogin: isLogin}})
-export const setAuth = (isLogin) => ({type: SET_USER_DATA, payload: {isLogin: isLogin}})
 export const setClassData = (classData) => ({type: SET_CLASS_DATA, classData})
+export const setAuth = (isLogin) => ({type: SET_AUTH, isLogin})
 export const setInitialized = () => ({type: SET_INITIALIZED})
+export const setTeacher = (isTeacher) => ({type: SET_CLASS_DATA, isTeacher})
+
 
 const getOptions = (username, password) => {
     let formdata = new FormData();
@@ -76,13 +78,13 @@ export const login = (username, password) => {
         let response = await authAPI.login(getOptions(username, password))
         // console.log(response)
         Cookies.set('accessToken', response.access, { expires: 7 })
-        dispatch(setAuthUserData(true))
+        dispatch(setAuth(true))
     }
 }
 export const logout = () => {
     return async (dispatch) => {
         Cookies.remove('accessToken')
-        dispatch(setAuthUserData(false))
+        dispatch(setAuth(false))
     }
 }
 
