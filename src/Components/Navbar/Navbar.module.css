@@ -1,6 +1,12 @@
 .outer {
+    padding-top: 30px;
     width: 100%;
-    background-color: #E42B66;
+    background-color: #c62641;
+    height: 230px;
+    position: fixed;
+    z-index: -1;
+    top: 0;
+
 }
 
 .container {
@@ -9,6 +15,7 @@
     width: 1600px;
     align-items: center;
     margin: 0 auto;
+    height: 70px;
 }
 
 .name {
@@ -31,6 +38,11 @@
     align-items: center;
     color: white;
     font-size: 20px;
+}
+
+.user div {
+    text-decoration: underline;
+    color: white;
 }
 
 .user button {

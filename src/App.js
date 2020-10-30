@@ -17,6 +17,7 @@ class App extends React.Component{
     render() {
         return (
             <div className="App">
+
                 <Switch>
                     <Route exact path='/' render={ () => <Main />} />
                     <Container  />
@@ -24,7 +25,6 @@ class App extends React.Component{
                 <Route exact path='/main' render={ () => <Main />} />
                 <Route exact path='/register' render={ () => <Register />} />
                 <Route exact path='/login' render={ () => <Login />} />
-
 
             </div>
         );

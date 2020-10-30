@@ -1,5 +1,4 @@
 import React from 'react';
-import * as axios from "axios";
 import {Redirect} from "react-router-dom";
 
 class Register extends React.Component {

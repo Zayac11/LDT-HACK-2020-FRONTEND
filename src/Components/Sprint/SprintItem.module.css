@@ -3,14 +3,17 @@
     border: 2px solid black;
     display: flex;
     justify-content: space-between;
-    padding: 0 10px;
+    padding: 10px;
     align-items: center;
+    border-radius: 10px;
+    width: 100%;
+    background-color: snow;
 }
 
 .outer {
-    padding: 10px;
-    margin: 10px auto;
-    border: 2px solid black;
+    background-color: #f8f8f8;
+    padding: 0 10px;
+    margin: 0 auto 30px;
 }
 
 .top {
@@ -18,12 +21,35 @@
     justify-content: space-between;
 }
 
+.top div {
+    font-size: 22px;
+    text-decoration: underline;
+}
+
+.top button {
+    border: 1px solid black;
+    /*border-radius: 10px;*/
+    outline: none;
+    color: white;
+    font-size: 16px;
+    background-color: #c62641;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.top button:hover {
+    background-color: #F45D76;
+}
+.row {
+    display: flex;
+    align-items: center;
+}
 .content {
+    margin:  0 0 0 auto;
     display: none;
 }
 
 .taskName {
-    width: 10%;
 }
 
 .link {
@@ -34,12 +60,19 @@
 
 .done {
     color: #4caf50;
-    width: 10%;
-    text-align: right;
+    width: 5%;
+    text-align: center;
 }
-
+.done img {
+    padding-top: 5px;
+    width: 32px;
+}
 .fail {
     color: red;
-    width: 10%;
-    text-align: right;
+    width: 5%;
+    text-align: center;
+}
+.fail img {
+    padding-top: 5px;
+    width: 32px;
 }

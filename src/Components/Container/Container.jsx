@@ -5,9 +5,9 @@ import NavbarContainer from "../Navbar/NavbarContainer";
 import SprintContainer from "../Sprint/SprintContainer";
 import Textarea from "../Textarea";
 import TaskContainer from "../Task/TaskContainer";
-import News from "../News";
 import Footer from "../Footer/Footer";
-import MyClass from "../Myclass";
+import MyClasses from "../MyClasses/MyClasses";
+import Error404 from "../404/Error404";
 
 class Container extends React.Component {
 
@@ -22,11 +22,10 @@ class Container extends React.Component {
                             <NavbarContainer />
                             <Switch>
                                 <Route exact path='/course/:id' render={ () => <SprintContainer />} />
-                                <Route path='/my_classes' render={ () => <MyClass />} />
+                                <Route path='/my_classes' render={ () => <MyClasses />} />
                                 <Route path='/textarea' render={ () => <Textarea />} />
                                 <Route path='/task/:id' render={ () => <TaskContainer />} />
-                                {/*Тут будет 404 ошибка*/}
-                                <Route path='*' render={ () => <News />} />
+                                <Route path='*' render={ () => <Error404 />} />
                             </Switch>
                             <Footer />
                         </>

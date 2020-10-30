@@ -33,8 +33,13 @@ class Textarea extends React.Component {
 
     render() {
         return (
-            <main className="container">
+            <main className="container__textarea">
                 <div className="container__content">
+                    <select name="languages"> {/*Нужно будет передавать callback'и из классового компонента, а так же локальный state в пропсах*/}
+                        {
+                            this.props.languages.map(l => <Selection key={l.id} value={l} />)
+                        }
+                    </select>
                     <div className="container_editor_area">
                         <Editor
                             placeholder={'Type some code'}
@@ -58,7 +63,7 @@ class Textarea extends React.Component {
                     {/*<textarea onChange={this.handleChange} name="code">*/}
 
                     {/*</textarea>*/}
-                    <button onClick={this.handleSubmit}>Submit</button>
+                    <button onClick={this.handleSubmit} className={'submit-button'}>Проверить решение</button>
                 </div>
             </main>
         )
@@ -67,4 +72,8 @@ class Textarea extends React.Component {
 
 export default Textarea;
 
-
+const Selection = (props) => {
+    return(
+        <option value="">{props.value}</option>
+    )
+}

@@ -1,24 +1,33 @@
 .outer {
-    background-color: #ccc;
+    margin-top: 230px;
+    width: 100%;
+    background-color: #f8f8f8;
     position: relative;
+    min-height: 100vh;
 }
 
 .container {
+    display: flex;
+    flex-direction: column;
     width: 1600px;
-    background-color: #fff;
     margin: 0 auto;
+    background-color: white;
+    top: -100px;
     position: relative;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
 .btnToBack {
+    /*font-size: ;*/
     position: absolute;
     top:0;
     left: 0;
-    padding: 5px 20px;
+    padding: 14px 20px;
     transition: all 0.2s ease;
 }
 .btnToBack:hover {
-    background-color: #ccc;
+    background-color: #DBD7D2;
 }
 
 .top {
@@ -29,6 +38,15 @@
     text-align: center;
     font-size: 26px;
     font-weight: bold;
+}
+
+.top div {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 32px;
 }
 
 .nav {

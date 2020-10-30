@@ -1,4 +1,4 @@
-import {authAPI, sprintAPI, taskAPI} from "../Components/api/api";
+import {sprintAPI, taskAPI} from "../Components/api/api";
 import Cookies from "js-cookie";
 
 const SET_SPRINTS = 'SET_SPRINTS'

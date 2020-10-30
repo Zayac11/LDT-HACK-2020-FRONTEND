@@ -1,14 +1,22 @@
 import React from 'react';
 import s from './Sprint.module.css'
 import SprintItem from "./SprintItem";
+import '../../Common/style.css'
+import {NavLink} from "react-router-dom";
+
 
 const Sprint = (props) => {
     return(
-        <div className={s.outer}>
-            <div className={s.container} >
+        <div className={'outer'}>
+            <div className={'container'} >
                 {props.classData.map(c =>
-                    <div key={c.id} className={s.classNumber}>
-                        {c.name}
+                    <div className={s.top} key={c.id}>
+                        <NavLink to={`/my_classes`} className={s.btnToBack}>
+                            Назад
+                        </NavLink>
+                        <div>
+                            {c.name}
+                        </div>
                     </div>
                 )}
                 <div className={s.inner}>

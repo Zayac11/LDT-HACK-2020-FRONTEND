@@ -8,7 +8,7 @@ const Navbar = (props) => {
             <div className={s.container}>
                 <div className={s.name}>
                     <img src={logo} alt="logo"/>
-                    <div>Название</div>
+                    <div>Портал дистанционного обучения</div>
                 </div>
                 <div className={s.user}>
                     {/*{props.name}*/}

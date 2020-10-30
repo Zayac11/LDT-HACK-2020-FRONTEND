@@ -3,11 +3,12 @@ import s from './Task.module.css'
 import {NavLink, Route} from "react-router-dom";
 import TheoryContainer from "../Theory/TheoryContainer";
 import PracticeContainer from "../Practice/PracticeContainer";
+import '../../Common/style.css'
 
 const Task = (props) => {
     return(
-        <div className={s.outer}>
-            <div className={s.container}>
+        <div className='outer'>
+            <div className='container'>
                     {props.classData.map(c =>
                     <div className={s.top} key={c.id}>
                         <NavLink to={`/course/${c.id}/`} className={s.btnToBack}>

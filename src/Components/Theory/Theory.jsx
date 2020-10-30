@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './Theory.module.css'
+import '../../Common/style.css'
 
 const Theory = (props) => {
     return(

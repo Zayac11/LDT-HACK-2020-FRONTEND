@@ -6,21 +6,16 @@ const Practice = (props) => {
     const task_detail = props.task.task_detail[0]
     return(
         <>
-
-
-            <div>
+            <div className={s.mission}>
                 {props.task.mission}
             </div>
             <div>
                 {/*{props.tests.map(t => <TestItem key={t.id} input={t.input} output={t.output} />)}*/}
             </div>
             {/*Сюда по-хорошему нужно в пропсах передавать код, который ученик мог вводить до этого*/}
-            <select name="languages"> {/*Нужно будет передавать callback'и из классового компонента, а так же локальный state в пропсах*/}
-                {
-                    props.task.languages.map(l => <Selection key={l.id} value={l} />)
-                }
-            </select>
+
             <Textarea
+                languages={props.task.languages}
                 code={task_detail.last_code}
             />
             {
@@ -52,10 +47,6 @@ const TestItem = (props) => {
     )
 }
 
-const Selection = (props) => {
-    return(
-        <option value="">{props.value}</option>
-    )
-}
+
 
 export default Practice

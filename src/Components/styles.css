@@ -10,16 +10,16 @@ body,
     width: 100%;
 }
 
-body {
-    font-family: 'Fira code', 'Fira Mono', Consolas, Menlo, Courier, monospace;
-    font-size: 14px;
-    line-height: 1.5;
-    margin: 0;
-    padding: 0;
-}
+/*body {*/
+/*    font-family: 'Fira code', 'Fira Mono', Consolas, Menlo, Courier, monospace;*/
+/*    font-size: 14px;*/
+/*    line-height: 1.5;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
 
 /* App */
-.container {
+.container__textarea {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -28,7 +28,7 @@ body {
 }
 
 .container__content {
-    width: 440px;
+    width: 80%;
     max-width: 100%;
     padding: 10px;
     text-align: center;
@@ -36,7 +36,6 @@ body {
 
 .container_editor_area {
     tab-size: 4ch;
-    max-height: 400px;
     overflow: auto;
     margin: 1.67em 0;
 }
@@ -123,4 +122,25 @@ body {
 }
 .token.entity {
     cursor: help;
+}
+select {
+    display: block;
+    margin-left: auto;
+    font-size: 16px;
+}
+
+.submit-button {
+    border: 1px solid black;
+    /*border-radius: 10px;*/
+    outline: none;
+    color: white;
+    font-size: 16px;
+    padding: 2px 10px;
+    background-color: #c62641;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.submit-button:hover {
+    background-color: #F45D76;
 }
