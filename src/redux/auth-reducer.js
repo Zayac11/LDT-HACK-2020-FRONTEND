@@ -4,10 +4,12 @@ import Cookies from "js-cookie";
 const SET_USER_DATA = 'SET_USER_DATA';
 const SET_AUTH = 'SET_AUTH';
 const SET_CLASS_DATA = 'SET_CLASS_DATA';
+const SET_INITIALIZED = 'SET_INITIALIZED';
 
 let initialState = {
     isLogin: false, //Нужно будет поменять на false
     classData: [],
+    isInitialized: false
 }
 
 const authReducer = (state = initialState, action) => {
@@ -21,6 +23,11 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLogin: action.isLogin,
+            }
+        case SET_INITIALIZED:
+            return {
+                ...state,
+                isInitialized: true,
             }
         case SET_CLASS_DATA:
             return {
@@ -36,6 +43,7 @@ const authReducer = (state = initialState, action) => {
 export const setAuthUserData = (isLogin) => ({type: SET_USER_DATA, payload: {isLogin: isLogin}})
 export const setAuth = (isLogin) => ({type: SET_USER_DATA, payload: {isLogin: isLogin}})
 export const setClassData = (classData) => ({type: SET_CLASS_DATA, classData})
+export const setInitialized = () => ({type: SET_INITIALIZED})
 
 const getOptions = (username, password) => {
     let formdata = new FormData();
@@ -86,6 +94,7 @@ export const initialized = () => {
             dispatch(setAuth(true))
             dispatch(setClassData(response))
         }
+        dispatch(setInitialized())
     }
 }
 

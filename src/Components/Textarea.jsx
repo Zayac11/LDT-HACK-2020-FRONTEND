@@ -37,7 +37,7 @@ class Textarea extends React.Component {
                 <div className="container__content">
                     <select name="languages"> {/*Нужно будет передавать callback'и из классового компонента, а так же локальный state в пропсах*/}
                         {
-                            this.props.languages.map(l => <Selection key={l.id} value={l} />)
+                            this.props.languages.map(l => <Selection key={l} value={l} />)
                         }
                     </select>
                     <div className="container_editor_area">

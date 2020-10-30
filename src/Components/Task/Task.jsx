@@ -21,9 +21,9 @@ const Task = (props) => {
                     )}
                 <div className={s.nav}>
                     <NavLink to={`/task/${props.task.id}/theory`}
-                             activeClassName={s.active}>Theory</NavLink>
+                             activeClassName={s.active}>Теория</NavLink>
                     <NavLink to={`/task/${props.task.id}/practice`}
-                         activeClassName={s.active}>Practice</NavLink>
+                         activeClassName={s.active}>Практика</NavLink>
                 </div>
                 <Route path='/task/:id/theory' render={ () => <TheoryContainer />} />
                 <Route path='/task/:id/practice' render={ () => <PracticeContainer />} />

@@ -18,9 +18,10 @@ const SprintItem = (props) => {
                 <div>
                     {props.name}
                 </div>
-                <button onClick={tasksContent}>
-                    Показать
-                </button>
+                <div onClick={tasksContent} className={s.arrow}>
+                    <span className={s.arrowLeft}></span>
+                    <span className={s.arrowRight}></span>
+                </div>
             </div>
             <div ref={content} className={s.content}> {/*Поле спринта, в котором отрисовывается поле таска*/}
                 {props.tasks.map(m => <SprintTask key={m.id} id={m.id} name={m.name} status={m.task_detail[0]} />)}

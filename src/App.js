@@ -7,6 +7,7 @@ import Container from "./Components/Container/Container";
 import Main from "./Components/Main/Main";
 import {connect} from "react-redux";
 import {initialized} from "./redux/auth-reducer";
+import Preloader from "./Common/Preloader/Preloader.jsx";
 
 class App extends React.Component{
 
@@ -15,6 +16,9 @@ class App extends React.Component{
     }
 
     render() {
+        if(!this.props.isInitialized) {
+            return <Preloader />
+        }
         return (
             <div className="App">
 
@@ -33,7 +37,8 @@ class App extends React.Component{
 
 let mapStateToProps = (state) => {
     return {
-        isLogin: state.auth.isLogin
+        isLogin: state.auth.isLogin,
+        isInitialized: state.auth.isInitialized,
     }
 }
 
