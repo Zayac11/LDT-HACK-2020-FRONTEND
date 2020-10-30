@@ -178,7 +178,7 @@ export const getTask = (taskId) => {
             })
     }
 }
-export const SendTask = (taskName, taskId, theoryText, missionText, tests, sprintId) => {
+export const SendTask = (taskName, taskId, theoryText, missionText, demoTests, tests, sprintId, languages, timeLimit, memoryLimit) => {
     return (dispatch) => {
         dispatch(addTask(taskName, taskId, sprintId))
     }

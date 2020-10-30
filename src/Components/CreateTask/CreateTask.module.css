@@ -7,3 +7,65 @@
     border-top: 2px solid black;
     background-color: #ccc;
 }
+
+.taskBtn {
+    display: block;
+    width: max-content;
+    padding: 5px 10px;
+    margin: 0 auto;
+}
+
+.submitBtn {
+    display: block;
+    width: max-content;
+    padding: 5px 10px;
+    margin: 10px auto;
+}
+
+.test div {
+    margin: 5px 2px;
+    text-align: center;
+}
+.testInner {
+    display: flex;
+    justify-content: space-between;
+}
+.testInner div {
+    width: 50%;
+}
+.test div div textarea {
+    display: block;
+    resize: none;
+    outline: none;
+    width: 99%;
+    overflow: hidden;
+    margin: 0 auto;
+    max-height: 100px;
+}
+
+.attention {
+    color: red;
+    width: max-content;
+    margin: 0 auto;
+}
+
+.checkboxEl {
+    display: flex;
+    align-items: center;
+}
+
+
+.limitation div{
+    display: flex;
+    align-items: center;
+}
+
+.limitation div textarea {
+    display: block;
+    resize: none;
+    outline: none;
+    width: 100px;
+    overflow: hidden;
+    margin: 5px 10px;
+    max-height: 100px;
+}
