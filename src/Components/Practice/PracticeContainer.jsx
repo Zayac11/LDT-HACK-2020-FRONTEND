@@ -9,7 +9,8 @@ class PracticeContainer extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            code: ""
+            code: "",
+            task_detail: [],
         }
 
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -31,22 +32,27 @@ class PracticeContainer extends React.Component{
 
         console.log(this.state)
 
-        this.props.sendCode("cpp","1000", this.props.match.params.id, this.state.code)
+        this.props.sendCode("cpp","1000", this.props.match.params.id, this.state.code) //Нужно поменять на выбранный код
         this.setState({
             code: ""
         })
     }
 
     componentDidMount() {
+        debugger
         this.setState({
-            code: this.props.task.task_detail[0].last_code
+            task_detail: [{
+                is_done: false,
+                last_code: "",
+            }],
         })
     }
 
     render() {
         return(
             <div>
-                <Practice code={this.state.code} handleSubmit={this.handleSubmit} handleChange={this.handleChange} tests={this.props.tests} task={this.props.task}/>
+                <Practice code={this.state.code} handleSubmit={this.handleSubmit} task_detail={this.state.task_detail}
+                          handleChange={this.handleChange} tests={this.props.tests} task={this.props.task}/>
             </div>
         )
     }
@@ -60,6 +66,5 @@ let mapStateToProps = (state) => {
 }
 
 let WithPracticeUrl = withRouter(PracticeContainer);
-
 
 export default connect(mapStateToProps, {getTask, sendCode})(WithPracticeUrl)

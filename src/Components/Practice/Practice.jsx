@@ -2,35 +2,34 @@ import React from 'react';
 import Textarea from "../Textarea";
 import s from './Practice.module.css'
 import DemoTests from "../DemoTests/DemoTests";
+import TestItem from "./TestItem";
 
 const Practice = (props) => {
     debugger
-    const task_detail = props.task.task.task_detail[0]
     return(
         <>
             <div className={s.mission}>
-                {props.task.mission}
+                {props.task.task.mission}
             </div>
             <div>
-                {/*{props.tests.map(t => <TestItem key={t.id} input={t.input} output={t.output} />)}*/}
+                <TestItem tests={props.task.tests} />
             </div>
             {/*Сюда по-хорошему нужно в пропсах передавать код, который ученик мог вводить до этого*/}
-
             <Textarea
                 handleChange={props.handleChange}
                 handleSubmit={props.handleSubmit}
                 languages={props.task.task.languages}
-                code={task_detail.last_code}
+                code={props.task_detail.last_code}
                 valueCode={props.code}
             />
             {
-                task_detail.is_done
+                props.task_detail.is_done
                 ?   <div className={s.done}>
                         Решено верно
                     </div>
                 :   <div className={s.fail}>
                         Решено неверно
-                    </div> //Тут можно будет создать компонент, в котором будут показаны ошибки
+                    </div>
             }
             <div className={s.testContainer}>
                 {
@@ -40,9 +39,6 @@ const Practice = (props) => {
                     )
                 }
             </div>
-
-
-
         </>
     )
 }

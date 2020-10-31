@@ -6,7 +6,6 @@ import PracticeContainer from "../Practice/PracticeContainer";
 import '../../Common/style.css'
 
 const Task = (props) => {
-    debugger
     return(
         <div className='outer'>
             <div className='container'>

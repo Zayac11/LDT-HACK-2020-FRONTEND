@@ -1,0 +1,18 @@
+.testsContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.testItem {
+    width: 30%;
+    margin: 10px;
+    padding: 10px;
+    background-color: #464544;
+}
+
+.testItem div {
+    color: white;
+}
+.testItem div div{
+    color: white;
+}
