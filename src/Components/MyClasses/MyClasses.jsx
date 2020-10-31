@@ -8,9 +8,7 @@ import '../../Common/style.css'
 class MyClasses extends React.Component{
 
     componentDidMount() {
-        if(this.props.classData.length === 0) { //Метод жизненного цикла нужен для подгрузки классов, если мы только что авторизовались
-            this.props.getClass()
-        }
+
     }
 
     render() {

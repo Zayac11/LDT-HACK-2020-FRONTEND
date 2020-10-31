@@ -28,13 +28,17 @@ const SprintItem = (props) => {
                 <div ref={content} className={s.content}> {/*Поле спринта, в котором отрисовывается поле таска*/}
                     {
                         props.tasks ?
-                        props.tasks.map(m => <SprintTask key={m.id} id={m.id} name={m.name} status={m.task_detail[0]} />
+                        props.tasks.map(m => <SprintTask key={m.id} isTeacher={props.isTeacher} sprintId={props.sprintId} id={m.id} name={m.name} status={m.task_detail[0]} />
                         ):
                         <div className={s.noTask}>
                             Нет заданий
                         </div>
                     }
-                    <NavLink to={`/create_task/${props.sprintId}`} className={s.addTask}>Добавить задание</NavLink>
+                    {
+                        props.isTeacher &&
+                        <NavLink to={`/create_task/${props.sprintId}`} className={s.addTask}>Добавить задание</NavLink>
+                    }
+
                 </div>
             </div>
         </>
@@ -42,6 +46,7 @@ const SprintItem = (props) => {
 }
 
 const SprintTask = (props) => {
+    debugger
     return(
         <div className={s.row}>
             {
@@ -55,6 +60,8 @@ const SprintTask = (props) => {
             }
             <div className={s.container}>
                 <div className={s.taskName}>{props.name}</div>
+                {props.isTeacher &&
+                <NavLink to={`/update_task/${props.id}`}>Изменить задание</NavLink>}
                 <NavLink to={`/task/${props.id}/theory`} className={s.link}> Перейти к заданию </NavLink>
             </div>
 

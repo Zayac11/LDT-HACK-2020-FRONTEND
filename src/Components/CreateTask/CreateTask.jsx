@@ -1,8 +1,12 @@
 import React from 'react';
 import s from './CreateTask.module.css'
 import '../../Common/style.css'
+import Error404 from "../404/Error404";
 
 const CreateTask = (props) => {
+    if(!props.isTeacher) {
+        return <Error404 />
+    }
     return(
         <div className='outer'>
             <div className='container'>
@@ -66,8 +70,14 @@ const CreateTask = (props) => {
                     <div>Ограничение по времени(ms)<textarea onChange={props.handleUpdate} placeholder='' value={props.timeLimit} name={`timeLimit`} ></textarea></div>
                     <div>Ограничение по памяти(ГБ)<textarea onChange={props.handleUpdate} placeholder='' value={props.memoryLimit} name={`memoryLimit`} ></textarea></div>
                 </div>
+                {props.isChange ?
+                    <div className={s.testInner}>
+                        <button className={s.submitBtn} onClick={props.handleSubmit}>Удалить таск</button>
+                        <button className={s.submitBtn} onClick={props.handleSubmit}>Изменить таск</button>
+                    </div>
+                    : <button className={s.submitBtn} onClick={props.handleSubmit}>Отправить таск</button>
+                }
 
-                <button className={s.submitBtn} onClick={props.handleSubmit}>Отправить таск</button>
             </div>
         </div>
     )

@@ -12,7 +12,7 @@ import Preloader from "./Common/Preloader/Preloader.jsx";
 class App extends React.Component{
 
     componentDidMount() {
-        this.props.initialized()
+        this.props.initialized() //загрузка данных о классах
     }
 
     render() {

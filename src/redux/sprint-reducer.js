@@ -1,11 +1,13 @@
 import {sprintAPI, taskAPI} from "../Components/api/api";
 import Cookies from "js-cookie";
+import {setAuth} from "./auth-reducer";
 
 const SET_SPRINTS = 'SET_SPRINTS'
 const SET_TASK = 'SET_TASK'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 const ADD_SPRINT = 'ADD_SPRINT'
 const ADD_TASK = 'ADD_TASK'
+const UPDATE_TASK = 'UPDATE_TASK'
 
 let initialState = {
     name: "",
@@ -135,6 +137,23 @@ const sprintReducer = (state = initialState, action) => {
                     ...s //иначе просто делаем копию объекта, без изменений
                 }) )
             }
+        case UPDATE_TASK:
+            let changedTask = {
+                id: action.taskId,
+                name: action.taskName,
+                languages: [...action.languages],
+                task_detail: [{
+                    id: action.taskId,
+                    is_done: false,
+                    last_code: ""
+                }],
+                theory: action.theoryText,
+                mission: action.missionText
+            }
+            return {
+                ...state,
+                task: changedTask
+            }
         default:
             return state;
     }
@@ -145,6 +164,7 @@ export const setTask = (task) => ({type: SET_TASK, task})
 export const toggleIsFetching = (isFetch) => ({type: TOGGLE_IS_FETCHING, isFetch})
 export const addSprint = (sprintName, sprintId) => ({type: ADD_SPRINT, sprintName, sprintId})
 export const addTask = (taskName, taskId, sprintId) => ({type: ADD_TASK, taskName, taskId, sprintId})
+export const changeTask = (taskName, taskId, theoryText, missionText, languages) => ({type: UPDATE_TASK, taskName, taskId, theoryText, missionText, languages})
 
 const getHeaders = () => {
     const accessToken = 'Bearer  ' + Cookies.get('accessToken')
@@ -161,9 +181,17 @@ const getHeaders = () => {
 
 export const getSprints = (sprintId) => {
     return async (dispatch) => {
+
         let response = await sprintAPI.getSprints(getHeaders(), sprintId)
             console.log(response)
-            dispatch(setSprints(response.sprints, response.name))
+            if(response.sprints) {
+                dispatch(setSprints(response.sprints, response.name))
+            }
+            else {
+                window.alert('У вас нет доступа к курсам данного класса')
+                Cookies.remove('accessToken')
+                dispatch(setAuth(false))
+            }
     }
 }
 
@@ -183,6 +211,13 @@ export const SendTask = (taskName, taskId, theoryText, missionText, demoTests, t
         dispatch(addTask(taskName, taskId, sprintId))
     }
 }
+export const updateTask = (taskName, taskId, theoryText, missionText, demoTests, tests, languages, timeLimit, memoryLimit) => {
+    return (dispatch) => {
+        debugger
+        dispatch(changeTask(taskName, taskId, theoryText, missionText, languages))
+    }
+}
+
 
 
 

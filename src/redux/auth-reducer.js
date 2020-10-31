@@ -76,7 +76,6 @@ const getHeaders = () => {
 export const login = (username, password) => {
     return async (dispatch) => {
         let response = await authAPI.login(getOptions(username, password))
-        // console.log(response)
         Cookies.set('accessToken', response.access, { expires: 7 })
         dispatch(setAuth(true))
     }

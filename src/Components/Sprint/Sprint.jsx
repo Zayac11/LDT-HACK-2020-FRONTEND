@@ -10,8 +10,7 @@ const Sprint = (props) => {
     return(
         <div className={'outer'}>
             <div className={'container'} >
-                {props.classData.map(c => c.id === props.id //мапаем массив классов и проверяем совпадение с нужным айдишником
-                        ?
+                {props.classData.map(c =>
                         <div className={s.top} key={c.id}>
                             <NavLink to={`/my_classes`} className={s.btnToBack}>
                                 Назад
@@ -19,7 +18,7 @@ const Sprint = (props) => {
                             <div>
                                 {c.name}
                             </div>
-                        </div> : null
+                        </div>
                     )
                 }
                 {
