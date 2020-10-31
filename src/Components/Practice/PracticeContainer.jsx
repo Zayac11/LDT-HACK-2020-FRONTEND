@@ -31,7 +31,7 @@ class PracticeContainer extends React.Component{
 
         console.log(this.state)
 
-        this.props.sendCode("python3",1000, Math.floor(this.props.match.params.id), this.state.code)
+        this.props.sendCode("cpp","1000", this.props.match.params.id, this.state.code)
         this.setState({
             code: ""
         })

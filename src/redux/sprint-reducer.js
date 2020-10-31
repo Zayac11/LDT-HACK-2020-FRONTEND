@@ -135,7 +135,7 @@ const sprintReducer = (state = initialState, action) => {
 export const setSprints = (sprints, name) => ({type: SET_SPRINTS, sprints, name })
 export const setTask = (task) => ({type: SET_TASK, task})
 export const toggleIsFetching = (isFetch) => ({type: TOGGLE_IS_FETCHING, isFetch})
-export const addSprint = (sprintName, sprintId) => ({type: ADD_SPRINT, sprintName, sprintId})
+export const appendSprint = (sprintName, sprintId) => ({type: ADD_SPRINT, sprintName, sprintId})
 export const addTask = (taskName, taskId, sprintId) => ({type: ADD_TASK, taskName, taskId, sprintId})
 export const changeTask = (taskName, taskId, theoryText, missionText, languages) => ({type: UPDATE_TASK, taskName, taskId, theoryText, missionText, languages})
 export const removeTask = (taskId) => ({type: DELETE_TASK, taskId})
@@ -143,7 +143,15 @@ export const removeSprint = (sprintId) => ({type: DELETE_SPRINT, sprintId})
 export const changeSprintName = (sprintName, sprintId) => ({type: CHANGE_SPRINT_NAME, sprintName, sprintId})
 // export const sendPracticeCode = () => ({type: SEND_CODE})
 
+const getToken = () => {
+    const accessToken = 'Bearer  ' + Cookies.get('accessToken')
+    let myHeaders = new Headers();
+    myHeaders.append("Authorization", accessToken);
+    return myHeaders
+}
+
 const getHeaders = () => {
+
     const accessToken = 'Bearer  ' + Cookies.get('accessToken')
     let myHeaders = new Headers();
     myHeaders.append("Authorization", accessToken);
@@ -169,6 +177,27 @@ export const getSprints = (sprintId) => {
                 Cookies.remove('accessToken')
                 dispatch(setAuth(false))
             }
+    }
+}
+export const addSprint = (sprintName, classId) => {
+
+    let formdata = new FormData();
+    formdata.append("name", sprintName)
+
+    let requestOptions = {
+        method: 'POST',
+        body: formdata,
+        headers: getToken(),
+        redirect: 'follow'
+    };
+
+    return (dispatch) => {
+        sprintAPI.addSprint(requestOptions, Math.floor(classId))
+            .then(response => {
+                debugger
+                console.log(response)
+                dispatch(appendSprint())
+            })
     }
 }
 
@@ -209,11 +238,10 @@ export const updateSprint = (sprintId, sprintName) => {
         dispatch(changeSprintName(sprintName, sprintId))
     }
 }
+
+
 export const sendCode = (language, timeLimit = 1000, taskId, code) => {
 
-    const accessToken = 'Bearer  ' + Cookies.get('accessToken')
-    let myHeaders = new Headers();
-    myHeaders.append("Authorization", accessToken);
     let formdata = new FormData();
     formdata.append("language", language);
     formdata.append("time_limit_millis", timeLimit);
@@ -222,18 +250,64 @@ export const sendCode = (language, timeLimit = 1000, taskId, code) => {
 
     let requestOptions = {
         method: 'POST',
-        headers: myHeaders,
+        headers: getToken(),
         body: formdata,
         redirect: 'follow'
     };
 
-    return (dispatch) => {
+    return async (dispatch) => {
         console.log(language, timeLimit = 1000, taskId, code)
-        taskAPI.sendCode(requestOptions, taskId)
-            .then(response => {
-                console.log(response)
-            })
-        // dispatch(sendPracticeCode())
+
+        // let promise = new Promise(((resolve, reject) => {
+        //
+        //     return taskAPI.sendCode(requestOptions, taskId)
+        //         .then(response => {
+        //             resolve(response)
+        //         })
+        // }))
+
+        await fetch(`http://127.0.0.1:8000/api/tasks/${Math.floor(taskId)}/send_code`, requestOptions)
+            // .get('/')
+            .then(
+                result => console.log(result.json().then(
+                    result => {
+                        console.log(JSON.parse(result))
+                    }
+                )), // не сработает
+        )
+        // let promise = await taskAPI.sendCode(requestOptions, taskId)
+
+        //setTimeout(() => { console.log(promise)}, 1)
+
+
+        // const response = await taskAPI.sendCode(requestOptions, taskId)
+        // console.log(Promise.resolve(response))
+        // const result = await response.json()
+
+        // new Promise(((resolve, reject) => {
+        //     taskAPI.sendCode(requestOptions, taskId)
+        //         .then(result => {
+        //             debugger
+        //             console.log('result', result)
+        //         })
+        //     // setTimeout(() => resolve(console.log(resolve)), 400)
+        // }))
+        //     .then(response => {
+        //         debugger
+        //         console.log(response)
+        //     })
+
+        // let response = await taskAPI.sendCode(requestOptions, taskId)
+            // .then(function (response) {
+            //     return response
+            //     // console.log(Promise.resolve(response))
+            //     // .then(response => {
+            //     //     console.log(response)
+            //     // })
+            //     // console.log(response)
+            //     // dispatch(sendPracticeCode())
+            // })
+
     }
 }
 

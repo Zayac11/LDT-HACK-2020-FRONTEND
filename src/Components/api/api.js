@@ -21,10 +21,11 @@ export const taskAPI = {
             .then(response => response.json())
     },
     sendCode(requestOptions, taskId) {
-        return fetch(`http://127.0.0.1:8000/api/tasks/${taskId}/send_code`, requestOptions)
+        return fetch(`http://127.0.0.1:8000/api/tasks/${Math.floor(taskId)}/send_code`, requestOptions)
             .then(response => {
-                debugger
-                response.json()
+                // response.json()
+                console.log(response)
+                console.log((response.json()))
             })
     }
 }
@@ -34,5 +35,12 @@ export const sprintAPI = {
         return fetch(`http://127.0.0.1:8000/api/classes/${sprintId}/`, requestOptions)
             .then(response => response.json())
     },
+    // updateSprintName() {
+    //
+    // },
+    addSprint(requestOptions, classId) {
+        return fetch(`http://127.0.0.1:8000/api/classes/${classId}/new_block`, requestOptions)
+            .then(response => response.json())
+    }
 
 }

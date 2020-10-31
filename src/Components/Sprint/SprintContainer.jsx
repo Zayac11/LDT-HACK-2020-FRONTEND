@@ -47,7 +47,7 @@ class SprintContainer extends React.Component {
         });
     }
     handleSubmit() {
-        this.props.addSprint(this.state.sprintText, this.props.sprints.length + 1) //Отсылаем на сервер и в гет запросе получаем новый id для отображения и перехода
+        this.props.addSprint(this.state.sprintText, this.props.match.params.id) //Отсылаем на сервер и в гет запросе получаем новый id для отображения и перехода
         this.setState({
             sprintText: ""
         })
