@@ -146,10 +146,10 @@ const sprintReducer = (state = initialState, action) => {
                 sprints: state.sprints.map(s =>
                         ({
                             ...s,
-                            tasks: [...s.tasks, s.tasks.filter((d) => {
+                            tasks: s.tasks.filter((d) => {
                                 return d.id !== action.taskId
                                 }
-                            )]
+                            )
                         })
                     // s.map(d => d.filter(
                     // (task) => {

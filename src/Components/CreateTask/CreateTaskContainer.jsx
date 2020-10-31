@@ -38,6 +38,7 @@ class CreateTaskContainer extends React.Component{
     }
 
     handleUpdate(event) {
+
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
@@ -111,8 +112,9 @@ class CreateTaskContainer extends React.Component{
                 this.state.tests, this.state.languages, this.state.timeLimit, this.state.memoryLimit)
         }
         else {
-            // this.props.SendTask(this.state.taskName, 228, this.state.theoryText, this.state.missionText, this.state.demoTests,
-            //     this.state.tests, this.state.sprintId, this.state.languages, this.state.timeLimit, this.state.memoryLimit)
+            debugger
+            this.props.SendTask(this.state.taskName, 228, this.state.theoryText, this.state.missionText, this.state.demoTests,
+                this.state.tests, this.state.sprintId, this.state.languages, this.state.timeLimit, this.state.memoryLimit)
         }
 
     }
@@ -143,7 +145,7 @@ class CreateTaskContainer extends React.Component{
         this.props.sprints.map(s =>
             s.id === Math.floor(this.props.match.params.id) ?
                 this.setState({
-                    isChange: true,
+                    // isChange: true,
                 }): null
         )
 

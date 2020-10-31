@@ -27,12 +27,12 @@ const SprintItem = (props) => {
                 </div>
                 <div ref={content} className={s.content}> {/*Поле спринта, в котором отрисовывается поле таска*/}
                     {
-                        props.tasks ?
+                        !props.tasks || props.tasks.length === 0 ?
+                            <div className={s.noTask}>
+                                Нет заданий
+                            </div>:
                         props.tasks.map(m => <SprintTask key={m.id} isTeacher={props.isTeacher} sprintId={props.sprintId} id={m.id} name={m.name} status={m.task_detail[0]} />
-                        ):
-                        <div className={s.noTask}>
-                            Нет заданий
-                        </div>
+                        )
                     }
                     {
                         props.isTeacher &&
