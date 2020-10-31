@@ -1,6 +1,7 @@
 import React from 'react';
 import Textarea from "../Textarea";
 import s from './Practice.module.css'
+import DemoTests from "../DemoTests/DemoTests";
 
 const Practice = (props) => {
     const task_detail = props.task.task_detail[0]
@@ -30,6 +31,16 @@ const Practice = (props) => {
                         Решено неверно
                     </div> //Тут можно будет создать компонент, в котором будут показаны ошибки
             }
+            <div className={s.testContainer}>
+                {
+                    props.tests &&
+                    props.tests.map(t =>
+                        <DemoTests key={t.test_num} status={t.status} error={t.error}  />
+                    )
+                }
+            </div>
+
+
 
         </>
     )

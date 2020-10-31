@@ -46,7 +46,7 @@ class PracticeContainer extends React.Component{
     render() {
         return(
             <div>
-                <Practice code={this.state.code} handleSubmit={this.handleSubmit} handleChange={this.handleChange} task={this.props.task}/>
+                <Practice code={this.state.code} handleSubmit={this.handleSubmit} handleChange={this.handleChange} tests={this.props.tests} task={this.props.task}/>
             </div>
         )
     }
@@ -55,6 +55,7 @@ class PracticeContainer extends React.Component{
 let mapStateToProps = (state) => {
     return {
         task: state.sprintPage.task,
+        tests: state.sprintPage.tests,
     }
 }
 

@@ -11,6 +11,7 @@ const UPDATE_TASK = 'UPDATE_TASK'
 const DELETE_TASK = 'DELETE_TASK'
 const DELETE_SPRINT = 'DELETE_SPRINT'
 const CHANGE_SPRINT_NAME = 'CHANGE_SPRINT_NAME'
+const SET_TESTS = 'SET_TESTS'
 const SEND_CODE = 'SEND_CODE'
 
 let initialState = {
@@ -18,6 +19,43 @@ let initialState = {
     sprints: [],
     isFetching: true,
     task:[],
+    tests: [
+    // {
+    //     error: "task_Start: execv(1): /home/ejudge/solves/5/131/in 0<input.txt↵Status: OK↵CPUTime: 2↵RealTime: 3↵VMSize: 442368↵",
+    //     status: true,
+    //     test_num: 0,
+    // },
+    // {
+    //     error: "task_Start: execv(1): /home/ejudge/solves/5/131/in 0<input.txt↵Status: OK↵CPUTime: 2↵RealTime: 3↵VMSize: 442368↵",
+    //     status: true,
+    //     test_num: 0,
+    // },
+    // {
+    //     error: "task_Start: execv(1): /home/ejudge/solves/5/131/in 0<input.txt↵Status: OK↵CPUTime: 2↵RealTime: 3↵VMSize: 442368↵",
+    //     status: true,
+    //     test_num: 0,
+    // },
+    // {
+    //     error: "task_Start: execv(1): /home/ejudge/solves/5/131/in 0<input.txt↵Status: OK↵CPUTime: 2↵RealTime: 3↵VMSize: 442368↵",
+    //     status: true,
+    //     test_num: 0,
+    // },
+    // {
+    //     error: "task_Start: execv(1): /home/ejudge/solves/5/131/in 0<input.txt↵Status: OK↵CPUTime: 2↵RealTime: 3↵VMSize: 442368↵",
+    //     status: true,
+    //     test_num: 0,
+    // },
+    // {
+    //     error: "task_Start: execv(1): /home/ejudge/solves/5/131/in 0<input.txt↵Status: OK↵CPUTime: 2↵RealTime: 3↵VMSize: 442368↵",
+    //     status: true,
+    //     test_num: 0,
+    // },
+    // {
+    //     error: "task_Start: execv(1): /home/ejudge/solves/5/131/in 0<input.txt↵Status: OK↵CPUTime: 2↵RealTime: 3↵VMSize: 442368↵",
+    //     status: true,
+    //     test_num: 0,
+    // },
+    ],
 }
 
 
@@ -96,6 +134,12 @@ const sprintReducer = (state = initialState, action) => {
                 })
 
             }
+        case SET_TESTS:
+            return {
+                ...state,
+                tests: action.tests
+
+            }
         case CHANGE_SPRINT_NAME:
             return {
                 ...state,
@@ -139,6 +183,7 @@ export const appendSprint = (sprintName, sprintId) => ({type: ADD_SPRINT, sprint
 export const addTask = (taskName, taskId, sprintId) => ({type: ADD_TASK, taskName, taskId, sprintId})
 export const changeTask = (taskName, taskId, theoryText, missionText, languages) => ({type: UPDATE_TASK, taskName, taskId, theoryText, missionText, languages})
 export const removeTask = (taskId) => ({type: DELETE_TASK, taskId})
+export const setTests = (tests) => ({type: SET_TESTS, tests})
 export const removeSprint = (sprintId) => ({type: DELETE_SPRINT, sprintId})
 export const changeSprintName = (sprintName, sprintId) => ({type: CHANGE_SPRINT_NAME, sprintName, sprintId})
 // export const sendPracticeCode = () => ({type: SEND_CODE})
@@ -194,7 +239,6 @@ export const addSprint = (sprintName, classId) => {
     return (dispatch) => {
         sprintAPI.addSprint(requestOptions, Math.floor(classId))
             .then(response => {
-                debugger
                 console.log(response)
                 dispatch(appendSprint())
             })
@@ -257,57 +301,15 @@ export const sendCode = (language, timeLimit = 1000, taskId, code) => {
 
     return async (dispatch) => {
         console.log(language, timeLimit = 1000, taskId, code)
-
-        // let promise = new Promise(((resolve, reject) => {
-        //
-        //     return taskAPI.sendCode(requestOptions, taskId)
-        //         .then(response => {
-        //             resolve(response)
-        //         })
-        // }))
-
         await fetch(`http://127.0.0.1:8000/api/tasks/${Math.floor(taskId)}/send_code`, requestOptions)
-            // .get('/')
             .then(
-                result => console.log(result.json().then(
+                result => result.json().then(
                     result => {
                         console.log(JSON.parse(result))
+                        dispatch(setTests(JSON.parse(result).tests))
                     }
-                )), // не сработает
+                ),
         )
-        // let promise = await taskAPI.sendCode(requestOptions, taskId)
-
-        //setTimeout(() => { console.log(promise)}, 1)
-
-
-        // const response = await taskAPI.sendCode(requestOptions, taskId)
-        // console.log(Promise.resolve(response))
-        // const result = await response.json()
-
-        // new Promise(((resolve, reject) => {
-        //     taskAPI.sendCode(requestOptions, taskId)
-        //         .then(result => {
-        //             debugger
-        //             console.log('result', result)
-        //         })
-        //     // setTimeout(() => resolve(console.log(resolve)), 400)
-        // }))
-        //     .then(response => {
-        //         debugger
-        //         console.log(response)
-        //     })
-
-        // let response = await taskAPI.sendCode(requestOptions, taskId)
-            // .then(function (response) {
-            //     return response
-            //     // console.log(Promise.resolve(response))
-            //     // .then(response => {
-            //     //     console.log(response)
-            //     // })
-            //     // console.log(response)
-            //     // dispatch(sendPracticeCode())
-            // })
-
     }
 }
 
