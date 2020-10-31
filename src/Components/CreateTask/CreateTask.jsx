@@ -20,9 +20,9 @@ const CreateTask = (props) => {
                 <div className={s.test}>
                 {
                     props.tests.map(t =>
-                        <div className={s.testInner} key={t.testId}>
-                            <div>Данные на вход<textarea onChange={props.updateTests} placeholder='Входные данные' id={t.testId} value={t.input} name={`question`} ></textarea></div>
-                            <div>Данные на выходе<textarea onChange={props.updateTests} placeholder='Выходные данные' id={t.testId} value={t.output} name={`answer`} ></textarea></div>
+                        <div className={s.testInner} key={t.id}>
+                            <div>Данные на вход<textarea onChange={props.updateTests} placeholder='Входные данные' id={t.id} value={t.question} name={`question`} ></textarea></div>
+                            <div>Данные на выходе<textarea onChange={props.updateTests} placeholder='Выходные данные' id={t.id} value={t.answer} name={`answer`} ></textarea></div>
                         </div>)
                 }
                 </div>

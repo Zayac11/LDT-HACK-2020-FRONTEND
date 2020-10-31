@@ -179,6 +179,7 @@ const getToken = () => {
     const accessToken = 'Bearer  ' + Cookies.get('accessToken')
     let myHeaders = new Headers();
     myHeaders.append("Authorization", accessToken);
+    myHeaders.append("Content-Type", "application/json");
     return myHeaders
 }
 
@@ -246,13 +247,13 @@ export const SendTask = (taskName, theoryText, missionText, tests, sprintId, lan
     let myHeaders = new Headers();
     myHeaders.append("Authorization", accessToken);
     myHeaders.append("Content-Type", "application/json");
-
+    debugger
     let data = JSON.stringify({
         "name": taskName,
         "theory": theoryText,
         "mission": missionText,
         "sprint": sprintId,
-        "languages": 'cpp',
+        "languages": languages.join(),
         "tests": tests,
     })
     let requestOptions = {
@@ -264,16 +265,32 @@ export const SendTask = (taskName, theoryText, missionText, tests, sprintId, lan
     return async (dispatch) => {
         debugger
         await fetch(`http://127.0.0.1:8000/api/blocks/${sprintId}/new_task`, requestOptions)
-            .then(response =>
-                {
-                    // dispatch(getSprints())
-                })
     }
 }
-export const updateTask = (taskName, taskId, theoryText, missionText, demoTests, tests, languages, timeLimit, memoryLimit) => {
+export const updateTask = (taskName, taskId, theoryText, missionText, tests, languages, timeLimit, memoryLimit) => {
+    let data = JSON.stringify({
+        "name": taskName,
+        "theory": theoryText,
+        "mission": missionText,
+        "sprint": taskId,
+        "languages": languages.join(),
+        "tests": tests,
+    })
+    let requestOptions = {
+        method: 'PUT',
+        headers: getToken(),
+        body: data,
+        redirect: 'follow'
+    };
+    debugger
     return (dispatch) => {
+        taskAPI.updateTask(requestOptions, taskId)
+            .then(response => {
+                debugger
+                // response.ok &&
+                // dispatch(changeTask(taskName, taskId, theoryText, missionText, languages))
+            })
 
-        dispatch(changeTask(taskName, taskId, theoryText, missionText, languages))
     }
 }
 export const deleteTask = (taskId) => {
