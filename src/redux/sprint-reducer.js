@@ -5,7 +5,6 @@ import {setAuth} from "./auth-reducer";
 const SET_SPRINTS = 'SET_SPRINTS'
 const SET_TASK = 'SET_TASK'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
-const ADD_SPRINT = 'ADD_SPRINT'
 const ADD_TASK = 'ADD_TASK'
 const UPDATE_TASK = 'UPDATE_TASK'
 const DELETE_TASK = 'DELETE_TASK'
@@ -77,16 +76,6 @@ const sprintReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: action.isFetch,
-            }
-        case ADD_SPRINT:
-            let newSprint = {
-                id: action.sprintId,
-                name: action.sprintName,
-                task: []
-            }
-            return {
-                ...state,
-                sprints: [...state.sprints, newSprint],
             }
         case ADD_TASK:
             let newTask = {
@@ -179,7 +168,6 @@ const sprintReducer = (state = initialState, action) => {
 export const setSprints = (sprints, name) => ({type: SET_SPRINTS, sprints, name })
 export const setTask = (task) => ({type: SET_TASK, task})
 export const toggleIsFetching = (isFetch) => ({type: TOGGLE_IS_FETCHING, isFetch})
-export const appendSprint = (sprintName, sprintId) => ({type: ADD_SPRINT, sprintName, sprintId})
 export const addTask = (taskName, taskId, sprintId) => ({type: ADD_TASK, taskName, taskId, sprintId})
 export const changeTask = (taskName, taskId, theoryText, missionText, languages) => ({type: UPDATE_TASK, taskName, taskId, theoryText, missionText, languages})
 export const removeTask = (taskId) => ({type: DELETE_TASK, taskId})
@@ -195,24 +183,19 @@ const getToken = () => {
     return myHeaders
 }
 
-const getHeaders = () => {
-
-    const accessToken = 'Bearer  ' + Cookies.get('accessToken')
-    let myHeaders = new Headers();
-    myHeaders.append("Authorization", accessToken);
+const getHeaders = (method) => {
 
     let requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
+        method: method,
+        headers: getToken(),
         redirect: 'follow'
     };
     return requestOptions
 }
 
-export const getSprints = (sprintId) => {
+export const getSprints = (classId) => {
     return async (dispatch) => {
-
-        let response = await sprintAPI.getSprints(getHeaders(), sprintId)
+        let response = await sprintAPI.getSprints(getHeaders('GET'), classId)
             console.log(response)
             if(response.sprints) {
                 dispatch(setSprints(response.sprints, response.name))
@@ -228,6 +211,7 @@ export const addSprint = (sprintName, classId) => {
 
     let formdata = new FormData();
     formdata.append("name", sprintName)
+    formdata.append("grade", classId)
 
     let requestOptions = {
         method: 'POST',
@@ -239,8 +223,7 @@ export const addSprint = (sprintName, classId) => {
     return (dispatch) => {
         sprintAPI.addSprint(requestOptions, Math.floor(classId))
             .then(response => {
-                console.log(response)
-                dispatch(appendSprint())
+                dispatch(getSprints(Math.floor(classId)))
             })
     }
 }
@@ -248,7 +231,7 @@ export const addSprint = (sprintName, classId) => {
 export const getTask = (taskId) => {
     return (dispatch) => {
         dispatch(toggleIsFetching(true))
-        taskAPI.getTask(getHeaders(), taskId)
+        taskAPI.getTask(getHeaders('GET'), taskId)
             .then(response => {
                 console.log(response)
                 dispatch(setTask(response))
@@ -274,12 +257,27 @@ export const deleteTask = (taskId) => {
 }
 export const deleteSprint = (sprintId) => {
     return (dispatch) => {
-        dispatch(removeSprint(sprintId))
+        sprintAPI.deleteSprint(getHeaders('DELETE'), sprintId)
+            .then(response => {
+                dispatch(removeSprint(sprintId))
+            })
     }
 }
 export const updateSprint = (sprintId, sprintName) => {
+    let formdata = new FormData();
+    formdata.append("name", sprintName)
+
+    let requestOptions = {
+        method: 'PUT',
+        body: formdata,
+        headers: getToken(),
+        redirect: 'follow'
+    };
     return (dispatch) => {
-        dispatch(changeSprintName(sprintName, sprintId))
+        sprintAPI.updateSprint(requestOptions, sprintId)
+            .then(response => {
+                dispatch(changeSprintName(sprintName, sprintId))
+            })
     }
 }
 
