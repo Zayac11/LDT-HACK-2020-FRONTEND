@@ -33,7 +33,7 @@ const Sprint = (props) => {
                 } {/*Отображение спринтов*/}
                 <div className={s.inner}>
                     {
-                        props.sprints.map(t => <SprintItem key={t.id} sprintId={t.id} isTeacher={props.isTeacher} tasks={t.tasks} name={t.name} />) //мапается массив спринтов
+                        props.sprints.map(t => <SprintItem key={t.id} handleDeleteSprint={props.handleDeleteSprint} sprintId={t.id} isTeacher={props.isTeacher} tasks={t.tasks} name={t.name} />) //мапается массив спринтов
                     }
                 </div>
             </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import Sprint from "./Sprint";
-import {addSprint, getSprints} from "../../redux/sprint-reducer";
+import {addSprint, deleteSprint, getSprints} from "../../redux/sprint-reducer";
 import {withRouter} from "react-router-dom";
 
 class SprintContainer extends React.Component {
@@ -13,6 +13,7 @@ class SprintContainer extends React.Component {
 
         this.handleUpdate = this.handleUpdate.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleDeleteSprint = this.handleDeleteSprint.bind(this);
 
     }
     handleUpdate(event) {
@@ -30,6 +31,10 @@ class SprintContainer extends React.Component {
             sprintText: ""
         })
     }
+    handleDeleteSprint(event) {
+        const sprintId = event.target.id
+        this.props.deleteSprint(Math.floor(sprintId))
+    }
     componentDidMount() {
         let sprintId = this.props.match.params.id //id класса, а не спринта
         if(!this.props.sprints.length > 0) { //Если спринты не подгрузились, то вызываем функцию для вызова отсюда
@@ -44,6 +49,7 @@ class SprintContainer extends React.Component {
                         handleUpdate={this.handleUpdate}
                         sprintText={this.state.sprintText}
                         handleSubmit={this.handleSubmit}
+                        handleDeleteSprint={this.handleDeleteSprint}
                 />
             </>
         )
@@ -60,4 +66,4 @@ let mapStateToProps = (state) => {
 
 let WithSprintUrl = withRouter(SprintContainer);
 
-export default connect(mapStateToProps,{getSprints, addSprint})(WithSprintUrl)
+export default connect(mapStateToProps,{getSprints, addSprint, deleteSprint})(WithSprintUrl)

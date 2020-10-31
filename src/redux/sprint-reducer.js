@@ -9,79 +9,14 @@ const ADD_SPRINT = 'ADD_SPRINT'
 const ADD_TASK = 'ADD_TASK'
 const UPDATE_TASK = 'UPDATE_TASK'
 const DELETE_TASK = 'DELETE_TASK'
+const DELETE_SPRINT = 'DELETE_SPRINT'
 const SEND_CODE = 'SEND_CODE'
 
 let initialState = {
     name: "",
     sprints: [],
     isFetching: true,
-    // sprints: [
-    //     {   name: "Python",
-    //         task:[{
-    //
-    //             id: 0,
-    //             name: "Python1",
-    //             status: true
-    //
-    //         },
-    //         {
-    //
-    //             id: 1,
-    //             name: "Python2",
-    //             status: true
-    //
-    //         },
-    //         {
-    //
-    //             id: 2,
-    //             name: "Python3",
-    //             status: false
-    //
-    //         }]
-    //     },
-    //     {   name: "C++",
-    //         task:[{
-    //
-    //             id: 3,
-    //             name: "C++1",
-    //             status: true
-    //
-    //         },
-    //         {
-    //
-    //             id: 4,
-    //             name: "C++2",
-    //             status: true
-    //
-    //         },
-    //         {
-    //
-    //             id: 5,
-    //             name: "C++3",
-    //             status: false
-    //
-    //         }]
-    //     },
-    // ],
     task:[],
-    // task: {
-    //     id: 0,
-    //     name: "Python1",
-    //     status: true,
-    //     theory: "Чтобы сделать то, надо здать теорию, теория, теория, тут теория",
-    //     tests: [
-    //         {
-    //           input: "2 + 3",
-    //           output: 5
-    //         },
-    //         {
-    //           input: "22 + 32",
-    //           output: 54
-    //         },
-    //     ],
-    //     correctness: true,
-    //     code: "function add(a, b) {↵    return a + b;↵}"
-    // }
 }
 
 
@@ -140,7 +75,6 @@ const sprintReducer = (state = initialState, action) => {
                 }) )
             }
         case DELETE_TASK:
-            debugger
             return {
                 ...state,
                 sprints: state.sprints.map(s =>
@@ -151,11 +85,15 @@ const sprintReducer = (state = initialState, action) => {
                                 }
                             )
                         })
-                    // s.map(d => d.filter(
-                    // (task) => {
-                    //     return task.id !== action.taskId
-                    // }
                 )
+            }
+        case DELETE_SPRINT:
+            return {
+                ...state,
+                sprints: state.sprints.filter((d)=> {
+                    return d.id !== action.sprintId
+                })
+
             }
         case UPDATE_TASK:
             let changedTask = {
@@ -186,6 +124,7 @@ export const addSprint = (sprintName, sprintId) => ({type: ADD_SPRINT, sprintNam
 export const addTask = (taskName, taskId, sprintId) => ({type: ADD_TASK, taskName, taskId, sprintId})
 export const changeTask = (taskName, taskId, theoryText, missionText, languages) => ({type: UPDATE_TASK, taskName, taskId, theoryText, missionText, languages})
 export const removeTask = (taskId) => ({type: DELETE_TASK, taskId})
+export const removeSprint = (sprintId) => ({type: DELETE_SPRINT, sprintId})
 // export const sendPracticeCode = () => ({type: SEND_CODE})
 
 const getHeaders = () => {
@@ -242,6 +181,11 @@ export const updateTask = (taskName, taskId, theoryText, missionText, demoTests,
 export const deleteTask = (taskId) => {
     return (dispatch) => {
         dispatch(removeTask(taskId))
+    }
+}
+export const deleteSprint = (sprintId) => {
+    return (dispatch) => {
+        dispatch(removeSprint(sprintId))
     }
 }
 export const sendCode = (language, timeLimit = 1000, taskId, code) => {

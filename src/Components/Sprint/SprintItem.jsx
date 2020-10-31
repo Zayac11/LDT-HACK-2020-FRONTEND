@@ -20,6 +20,13 @@ const SprintItem = (props) => {
                     <div>
                         {props.name}
                     </div>
+                    {
+                        props.isTeacher ?
+                        <div className={s.deleteBtn}>
+                            <button onClick={props.handleDeleteSprint} id={props.sprintId}>Удалить спринт</button>
+                        </div> : null
+                    }
+
                     <div onClick={tasksContent} className={s.arrow}>
                         <span className={s.arrowLeft}></span>
                         <span className={s.arrowRight}></span>

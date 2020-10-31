@@ -114,7 +114,7 @@ class CreateTaskContainer extends React.Component{
         else {
             debugger
             this.props.SendTask(this.state.taskName, 228, this.state.theoryText, this.state.missionText, this.state.demoTests,
-                this.state.tests, this.state.sprintId, this.state.languages, this.state.timeLimit, this.state.memoryLimit)
+                this.state.tests, Math.floor(this.state.sprintId), this.state.languages, this.state.timeLimit, this.state.memoryLimit)
         }
 
     }
