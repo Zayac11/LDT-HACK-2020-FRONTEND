@@ -10,6 +10,7 @@ const ADD_TASK = 'ADD_TASK'
 const UPDATE_TASK = 'UPDATE_TASK'
 const DELETE_TASK = 'DELETE_TASK'
 const DELETE_SPRINT = 'DELETE_SPRINT'
+const CHANGE_SPRINT_NAME = 'CHANGE_SPRINT_NAME'
 const SEND_CODE = 'SEND_CODE'
 
 let initialState = {
@@ -95,6 +96,20 @@ const sprintReducer = (state = initialState, action) => {
                 })
 
             }
+        case CHANGE_SPRINT_NAME:
+            return {
+                ...state,
+                sprints: state.sprints.map(s => action.sprintId === s.id ?
+                {
+                    ...s,
+                    name: action.sprintName
+                } :
+                {
+                   ...s
+                }
+                )
+
+            }
         case UPDATE_TASK:
             let changedTask = {
                 id: action.taskId,
@@ -125,6 +140,7 @@ export const addTask = (taskName, taskId, sprintId) => ({type: ADD_TASK, taskNam
 export const changeTask = (taskName, taskId, theoryText, missionText, languages) => ({type: UPDATE_TASK, taskName, taskId, theoryText, missionText, languages})
 export const removeTask = (taskId) => ({type: DELETE_TASK, taskId})
 export const removeSprint = (sprintId) => ({type: DELETE_SPRINT, sprintId})
+export const changeSprintName = (sprintName, sprintId) => ({type: CHANGE_SPRINT_NAME, sprintName, sprintId})
 // export const sendPracticeCode = () => ({type: SEND_CODE})
 
 const getHeaders = () => {
@@ -186,6 +202,11 @@ export const deleteTask = (taskId) => {
 export const deleteSprint = (sprintId) => {
     return (dispatch) => {
         dispatch(removeSprint(sprintId))
+    }
+}
+export const updateSprint = (sprintId, sprintName) => {
+    return (dispatch) => {
+        dispatch(changeSprintName(sprintName, sprintId))
     }
 }
 export const sendCode = (language, timeLimit = 1000, taskId, code) => {

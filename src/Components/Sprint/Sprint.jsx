@@ -22,18 +22,20 @@ const Sprint = (props) => {
                     )
                 }
                 {
-                    props.isTeacher ?
+                    props.isTeacher &&
                         <div className={s.addSprint}>
                             <div><textarea className={s.addText} onChange={props.handleUpdate} value={props.sprintText} name="sprintText" placeholder='Название спринта'></textarea></div>
                             <button className={s.addBtn} onClick={props.handleSubmit}>
                                 Добавить
                             </button>
                         </div>
-                        : null
                 } {/*Отображение спринтов*/}
                 <div className={s.inner}>
                     {
-                        props.sprints.map(t => <SprintItem key={t.id} handleDeleteSprint={props.handleDeleteSprint} sprintId={t.id} isTeacher={props.isTeacher} tasks={t.tasks} name={t.name} />) //мапается массив спринтов
+                        props.sprints.map(t => <SprintItem key={t.id} deactivateEditMode={props.deactivateEditMode}  activateEditMode={props.activateEditMode}
+                                                           handleDeleteSprint={props.handleDeleteSprint} sprintId={t.id}
+                                                           handleUpdate={props.handleUpdate} editMode={props.editMode} mutableSprintId={props.mutableSprintId}
+                                                           isTeacher={props.isTeacher} tasks={t.tasks} name={t.name} />) //мапается массив спринтов
                     }
                 </div>
             </div>

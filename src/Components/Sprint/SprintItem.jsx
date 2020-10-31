@@ -6,7 +6,6 @@ import check from '../../assets/images/check.png'
 import cross  from '../../assets/images/cross.png'
 
 const SprintItem = (props) => {
-
     let content = React.createRef();
     let tasksContent = () => {
         const el = content
@@ -17,20 +16,29 @@ const SprintItem = (props) => {
 
             <div className={s.outer}>
                 <div className={s.top}>
-                    <div>
+                    <div className={s.sprintName}>
                         {props.name}
                     </div>
                     {
-                        props.isTeacher ?
+                        props.isTeacher &&
                         <div className={s.deleteBtn}>
                             <button onClick={props.handleDeleteSprint} id={props.sprintId}>Удалить спринт</button>
-                        </div> : null
+                            {
+                                props.editMode && props.mutableSprintId === props.sprintId ?
+                                <div>
+                                    <input onChange={props.handleUpdate} type="text" name='sprintName'/>
+                                    <button onClick={props.deactivateEditMode} id={props.sprintId}>Добавить</button>
+                                </div>
+                                    : <button onClick={props.activateEditMode} id={props.sprintId}>Изменить блок</button>
+                            }
+                        </div>
                     }
 
-                    <div onClick={tasksContent} className={s.arrow}>
+                    <div onClick={tasksContent} className={s.arrow}> {/*Стрелка вниз*/}
                         <span className={s.arrowLeft}></span>
                         <span className={s.arrowRight}></span>
                     </div>
+
                 </div>
                 <div ref={content} className={s.content}> {/*Поле спринта, в котором отрисовывается поле таска*/}
                     {
