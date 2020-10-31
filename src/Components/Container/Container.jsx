@@ -10,12 +10,12 @@ import MyClasses from "../MyClasses/MyClasses";
 import Error404 from "../404/Error404";
 import CreateTaskContainer from "../CreateTask/CreateTaskContainer";
 import UpdateTaskContainer from "../CreateTask/UpdateTaskContainer";
-import {getClass} from "../../redux/auth-reducer";
+import {setTeacherStatus} from "../../redux/auth-reducer";
 
 class Container extends React.Component {
 
     componentDidMount() {
-
+        this.props.setTeacherStatus()
     }
 
     render() {
@@ -50,7 +50,7 @@ let mapStateToProps = (state) => {
     };
 }
 
-export default connect(mapStateToProps, {getClass})(Container)
+export default connect(mapStateToProps, {setTeacherStatus})(Container)
 
 
 

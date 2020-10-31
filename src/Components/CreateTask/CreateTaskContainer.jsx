@@ -137,7 +137,6 @@ class CreateTaskContainer extends React.Component{
             sprintId: sprintId,
         })
 
-        console.log('Ярик')
         // debugger
         // this.props.isChange &&
         //     this.setState({

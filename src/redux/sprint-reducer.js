@@ -285,12 +285,6 @@ export const updateTask = (taskName, taskId, theoryText, missionText, tests, lan
     debugger
     return (dispatch) => {
         taskAPI.updateTask(requestOptions, taskId)
-            .then(response => {
-                debugger
-                // response.ok &&
-                // dispatch(changeTask(taskName, taskId, theoryText, missionText, languages))
-            })
-
     }
 }
 export const deleteTask = (taskId) => {

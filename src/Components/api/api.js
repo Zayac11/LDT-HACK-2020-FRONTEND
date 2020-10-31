@@ -12,6 +12,12 @@ export const authAPI = {
             fetch('http://127.0.0.1:8000/api/my_classes', requestOptions)
                 .then(response => response.json())
         )
+    },
+    getStatus(requestOptions) {
+        return(
+            fetch('http://127.0.0.1:8000/api/get_status', requestOptions)
+                .then(response => response.json())
+        )
     }
 }
 

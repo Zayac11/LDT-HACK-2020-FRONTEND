@@ -7,10 +7,10 @@ const SET_INITIALIZED = 'SET_INITIALIZED';
 const SET_TEACHER = 'SET_TEACHER';
 
 let initialState = {
-    isLogin: false, //Нужно будет поменять на false
+    isLogin: false,
     classData: [],
     isInitialized: false,
-    isTeacher: true,
+    isTeacher: false,
 }
 
 const authReducer = (state = initialState, action) => {
@@ -44,7 +44,7 @@ const authReducer = (state = initialState, action) => {
 export const setClassData = (classData) => ({type: SET_CLASS_DATA, classData})
 export const setAuth = (isLogin) => ({type: SET_AUTH, isLogin})
 export const setInitialized = () => ({type: SET_INITIALIZED})
-export const setTeacher = (isTeacher) => ({type: SET_CLASS_DATA, isTeacher})
+export const setTeacher = (isTeacher) => ({type: SET_TEACHER, isTeacher})
 
 
 const getOptions = (username, password) => {
@@ -90,7 +90,7 @@ export const logout = () => {
 export const initialized = () => {
     return async (dispatch) => {
         let response = await authAPI.getClasses(getHeaders())
-        console.log(response)
+        console.log('initialize', response)
         if(!response.code) {
             dispatch(setAuth(true))
             dispatch(setClassData(response))
@@ -102,8 +102,15 @@ export const initialized = () => {
 export const getClass = () => {
     return async (dispatch) => {
         let response = await authAPI.getClasses(getHeaders())
-        console.log(response)
+        console.log('getClass', response)
         dispatch(setClassData(response))
+    }
+}
+export const setTeacherStatus = () => {
+    return async (dispatch) => {
+        let response = await authAPI.getStatus(getHeaders())
+        response === "TEACHER" &&
+        dispatch(setTeacher(true))
     }
 }
 
