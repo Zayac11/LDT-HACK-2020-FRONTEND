@@ -4,7 +4,8 @@ import s from './Practice.module.css'
 import DemoTests from "../DemoTests/DemoTests";
 
 const Practice = (props) => {
-    const task_detail = props.task.task_detail[0]
+    debugger
+    const task_detail = props.task.task.task_detail[0]
     return(
         <>
             <div className={s.mission}>
@@ -18,7 +19,7 @@ const Practice = (props) => {
             <Textarea
                 handleChange={props.handleChange}
                 handleSubmit={props.handleSubmit}
-                languages={props.task.languages}
+                languages={props.task.task.languages}
                 code={task_detail.last_code}
                 valueCode={props.code}
             />
@@ -33,7 +34,7 @@ const Practice = (props) => {
             }
             <div className={s.testContainer}>
                 {
-                    props.tests &&
+                    props.tests.length > 0 &&
                     props.tests.map(t =>
                         <DemoTests key={t.test_num} status={t.status} error={t.error}  />
                     )
@@ -45,22 +46,5 @@ const Practice = (props) => {
         </>
     )
 }
-
-const TestItem = (props) => {
-    return(
-        <div className={s.testItem}>
-            <div>
-                Input:
-                {props.input}
-            </div>
-            <div>
-                Output:
-                {props.output}
-            </div>
-        </div>
-    )
-}
-
-
 
 export default Practice

@@ -64,9 +64,9 @@ class SprintContainer extends React.Component {
     }
     componentDidMount() {
         let sprintId = this.props.match.params.id //id класса, а не спринта
-        if(!this.props.sprints.length > 0) { //Если спринты не подгрузились, то вызываем функцию для вызова отсюда
+        // if(!this.props.sprints.length > 0) { //Если спринты не подгрузились, то вызываем функцию для вызова отсюда
             this.props.getSprints(sprintId)
-        }
+        // }
     }
 
     render() {

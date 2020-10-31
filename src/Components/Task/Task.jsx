@@ -6,6 +6,7 @@ import PracticeContainer from "../Practice/PracticeContainer";
 import '../../Common/style.css'
 
 const Task = (props) => {
+    debugger
     return(
         <div className='outer'>
             <div className='container'>
@@ -20,9 +21,9 @@ const Task = (props) => {
                     </div>
                     )}
                 <div className={s.nav}>
-                    <NavLink to={`/task/${props.task.id}/theory`}
+                    <NavLink to={`/task/${props.task.task.id}/theory`}
                              activeClassName={s.active}>Теория</NavLink>
-                    <NavLink to={`/task/${props.task.id}/practice`}
+                    <NavLink to={`/task/${props.task.task.id}/practice`}
                          activeClassName={s.active}>Практика</NavLink>
                 </div>
                 <Route path='/task/:id/theory' render={ () => <TheoryContainer />} />

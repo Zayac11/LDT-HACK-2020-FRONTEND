@@ -32,6 +32,7 @@ class Textarea extends React.Component {
     }
 
     render() {
+        debugger
         return (
             <main className="container__textarea">
                 <div className="container__content">

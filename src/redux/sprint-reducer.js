@@ -11,7 +11,6 @@ const DELETE_TASK = 'DELETE_TASK'
 const DELETE_SPRINT = 'DELETE_SPRINT'
 const CHANGE_SPRINT_NAME = 'CHANGE_SPRINT_NAME'
 const SET_TESTS = 'SET_TESTS'
-const SEND_CODE = 'SEND_CODE'
 
 let initialState = {
     name: "",
@@ -223,6 +222,7 @@ export const addSprint = (sprintName, classId) => {
     return (dispatch) => {
         sprintAPI.addSprint(requestOptions, Math.floor(classId))
             .then(response => {
+                response.ok &&
                 dispatch(getSprints(Math.floor(classId)))
             })
     }
@@ -239,9 +239,35 @@ export const getTask = (taskId) => {
             })
     }
 }
-export const SendTask = (taskName, taskId, theoryText, missionText, demoTests, tests, sprintId, languages, timeLimit, memoryLimit) => {
-    return (dispatch) => {
-        dispatch(addTask(taskName, taskId, sprintId))
+//addTask
+export const SendTask = (taskName, theoryText, missionText, tests, sprintId, languages, timeLimit, memoryLimit) => {
+
+    const accessToken = 'Bearer  ' + Cookies.get('accessToken')
+    let myHeaders = new Headers();
+    myHeaders.append("Authorization", accessToken);
+    myHeaders.append("Content-Type", "application/json");
+
+    let data = JSON.stringify({
+        "name": taskName,
+        "theory": theoryText,
+        "mission": missionText,
+        "sprint": sprintId,
+        "languages": 'cpp',
+        "tests": tests,
+    })
+    let requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: data,
+        redirect: 'follow'
+    };
+    return async (dispatch) => {
+        debugger
+        await fetch(`http://127.0.0.1:8000/api/blocks/${sprintId}/new_task`, requestOptions)
+            .then(response =>
+                {
+                    // dispatch(getSprints())
+                })
     }
 }
 export const updateTask = (taskName, taskId, theoryText, missionText, demoTests, tests, languages, timeLimit, memoryLimit) => {
@@ -252,13 +278,20 @@ export const updateTask = (taskName, taskId, theoryText, missionText, demoTests,
 }
 export const deleteTask = (taskId) => {
     return (dispatch) => {
-        dispatch(removeTask(taskId))
+        taskAPI.deleteTask(getHeaders('DELETE'), taskId)
+            .then(response => {
+                if(response.ok) {
+                    dispatch(removeTask(taskId))
+                    // dispatch(getSprints())
+                }
+            })
     }
 }
 export const deleteSprint = (sprintId) => {
     return (dispatch) => {
         sprintAPI.deleteSprint(getHeaders('DELETE'), sprintId)
             .then(response => {
+                response.ok &&
                 dispatch(removeSprint(sprintId))
             })
     }
@@ -276,6 +309,7 @@ export const updateSprint = (sprintId, sprintName) => {
     return (dispatch) => {
         sprintAPI.updateSprint(requestOptions, sprintId)
             .then(response => {
+                response.ok &&
                 dispatch(changeSprintName(sprintName, sprintId))
             })
     }

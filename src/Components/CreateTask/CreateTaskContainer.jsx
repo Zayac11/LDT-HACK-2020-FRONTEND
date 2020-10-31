@@ -14,25 +14,21 @@ class CreateTaskContainer extends React.Component{
             taskName: "",
             theoryText: "",
             missionText: "",
-            demoTests: [{
-                input: "",
-                output: "",
-                testId: 0,
-            },],
             tests: [{
-                input: "",
-                output: "",
+                question: "",
+                answer: "",
+                is_visible: true,
                 testId: 0,
             },],
             languages: [],
             timeLimit: "",
             memoryLimit: "",
-            isChange: false
+            isChange: false,
+            allTests:[]
         };
         this.handleUpdate = this.handleUpdate.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
-        this.updateDemoTests = this.updateDemoTests.bind(this);
         this.updateTests = this.updateTests.bind(this);
         this.addTest = this.addTest.bind(this);
     }
@@ -47,46 +43,49 @@ class CreateTaskContainer extends React.Component{
         this.setState({
             [name]: value
         })
+
+
+
+        const langes = this.state.languages.filter( (l) =>
+            l !== name
+        )
         target.type === 'checkbox' &&
              value ?
             this.setState({
-                languages: [...this.state.languages, name]
+                languages: [...langes, name]
             }) :
             this.setState({
-                languages: this.state.languages.filter( //фильтруем массив, удаляя из него совпадения по имени я.п.
+                languages: langes.filter( //фильтруем массив, удаляя из него совпадения по имени я.п.
                     (l) => {
                         return l !== name
                     }
                 )
             })
     }
-    updateDemoTests(event) {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-        const id = Math.floor(target.id)
 
-        this.setState({
-            demoTests: this.state.demoTests.map(test => test.testId === id ?
-                ({
-                    ...test,
-                    [name]: value
-                }):{...test})
-        });
-    }
     updateTests(event) {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
         const id = Math.floor(target.id)
 
+        id < 3 ?
         this.setState({
             tests: this.state.tests.map(test => test.testId === id ?
             ({
                 ...test,
-                [name]: value
+                [name]: value,
+                is_visible: true
             }):{...test})
-        });
+        }):
+        this.setState({
+            tests: this.state.tests.map(test => test.testId === id ?
+                ({
+                    ...test,
+                    [name]: value,
+                    is_visible: false
+                }):{...test})
+        })
 
     }
 
@@ -96,38 +95,51 @@ class CreateTaskContainer extends React.Component{
         const name = target.name;
 
         this.setState({
-            [name]: [...this.state.[name], { //Ошибки НЕТ
-                input: "",
-                output: "",
-                testId: this.state.[name].length,
+            tests: [...this.state.tests, { //Ошибки НЕТ
+                question: "",
+                answer: "",
+                is_visible: false,
+                testId: this.state.tests.length,
             }]
         })
 
     }
 
-    handleSubmit() { //Создать таск
+    handleSubmit() { // Создать/изменить таск
         console.log(this.state)
+        console.log(this.state.allTests)
+        debugger
+
+        // this.setState({
+        //     tests: [
+        //         this.state.tests.map(t =>({
+        //             ...t,
+        //             testId: ""
+        //         }) )
+        //     ]
+        // })
+
         if(this.state.isChange) {
             this.props.updateTask(this.state.taskName, Math.floor(this.state.sprintId), this.state.theoryText, this.state.missionText, this.state.demoTests,
                 this.state.tests, this.state.languages, this.state.timeLimit, this.state.memoryLimit)
         }
         else {
-            debugger
-            this.props.SendTask(this.state.taskName, 228, this.state.theoryText, this.state.missionText, this.state.demoTests,
+            this.props.SendTask(this.state.taskName, this.state.theoryText, this.state.missionText,
                 this.state.tests, Math.floor(this.state.sprintId), this.state.languages, this.state.timeLimit, this.state.memoryLimit)
         }
 
     }
 
     handleDelete() {
-        this.props.deleteTask(Math.floor(this.state.sprintId)) //id Таска
+        this.props.deleteTask(Math.floor(this.state.sprintId)) //В данном случае, это id ТАСКА, а не его спринта
         //После делета можно сделать гет запрос за новым спринтом
     }
 
     componentDidMount() {
         let sprintId = this.props.match.params.id //id спринта при добавлении таска или id таска при его изменении или удалении
 
-        if(!this.props.sprints.length > 0) { //Если спринты не подгрузились, то вызываем функцию для вызова отсюда
+        if(!this.props.sprints.length > 0) {
+            //Если спринты не подгрузились, то вызываем функцию для вызова отсюда
             this.props.getSprints(this.props.classData[0].id) //гетаем спринты по id КЛАССА
         }
 
@@ -137,18 +149,21 @@ class CreateTaskContainer extends React.Component{
                 isChange: this.props.isChange
             })
         }
-
         this.setState({
-            sprintId: sprintId
+            sprintId: sprintId,
         })
 
-        this.props.sprints.map(s =>
-            s.id === Math.floor(this.props.match.params.id) ?
-                this.setState({
-                    // isChange: true,
-                }): null
-        )
-
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if((prevProps.task.length === 0 && this.props.task.length === 1 ) || prevProps.task !== this.props.task) {
+            const task = this.props.task
+            this.setState({
+                taskName: task.name,
+                theoryText: task.theory,
+                missionText: task.mission,
+                languages: task.languages,
+            })
+        }
     }
 
     render() {
@@ -157,11 +172,9 @@ class CreateTaskContainer extends React.Component{
                         isChange={this.props.isChange}
                         handleUpdate={this.handleUpdate}
                         updateTests={this.updateTests}
-                        updateDemoTests={this.updateDemoTests}
                         handleSubmit={this.handleSubmit}
                         handleDelete={this.handleDelete}
                         addTest={this.addTest}
-                        demoTests={this.state.demoTests}
                         tests={this.state.tests}
                         missionText={this.state.missionText}
                         theoryText={this.state.theoryText}
@@ -179,7 +192,8 @@ let mapStateToProps = (state) => {
     return{
         classData: state.auth.classData,
         sprints: state.sprintPage.sprints,
-        isTeacher: state.auth.isTeacher
+        isTeacher: state.auth.isTeacher,
+        task: state.sprintPage.task
     }
 }
 

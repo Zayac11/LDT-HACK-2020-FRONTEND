@@ -20,6 +20,16 @@ export const taskAPI = {
         return fetch(`http://127.0.0.1:8000/api/tasks/${taskId}/`, requestOptions)
             .then(response => response.json())
     },
+    deleteTask(requestOptions, taskId){
+        return fetch(`http://127.0.0.1:8000/api/tasks/${taskId}/delete`, requestOptions)
+    },
+    addTask(requestOptions, sprintId){
+        debugger
+        return fetch(`http://127.0.0.1:8000/api/blocks/${sprintId}/new_task`, requestOptions)
+            .then(response => {
+                response.json()
+            })
+    }
     // sendCode(requestOptions, taskId) {
     //     return fetch(`http://127.0.0.1:8000/api/tasks/${Math.floor(taskId)}/send_code`, requestOptions)
     //         .then(response => {

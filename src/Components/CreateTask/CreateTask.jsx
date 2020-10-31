@@ -4,6 +4,7 @@ import '../../Common/style.css'
 import Error404 from "../404/Error404";
 
 const CreateTask = (props) => {
+
     if(!props.isTeacher) {
         return <Error404 />
     }
@@ -13,43 +14,26 @@ const CreateTask = (props) => {
                 <div><textarea onChange={props.handleUpdate} value={props.taskName} placeholder='Название задания' name="taskName"></textarea></div>
                 <div><textarea onChange={props.handleUpdate} value={props.theoryText} placeholder='Теория' name="theoryText"></textarea></div>
                 <div><textarea onChange={props.handleUpdate} value={props.missionText} placeholder='Постановка задачи' name="missionText"></textarea></div>
-
                 <div>
-                    Демо тесты
+                    Первые 3 теста будут видны ученику
                 </div>
                 <div className={s.test}>
                 {
-                    props.demoTests.map(t =>
+                    props.tests.map(t =>
                         <div className={s.testInner} key={t.testId}>
-                            <div>Данные на вход<textarea onChange={props.updateDemoTests} placeholder='Входные данные' id={t.testId} value={t.input} name={`input`} ></textarea></div>
-                            <div>Данные на выходе<textarea onChange={props.updateDemoTests} placeholder='Выходные данные' id={t.testId} value={t.output} name={`output`} ></textarea></div>
+                            <div>Данные на вход<textarea onChange={props.updateTests} placeholder='Входные данные' id={t.testId} value={t.input} name={`question`} ></textarea></div>
+                            <div>Данные на выходе<textarea onChange={props.updateTests} placeholder='Выходные данные' id={t.testId} value={t.output} name={`answer`} ></textarea></div>
                         </div>)
                 }
                 </div>
                 {
-                    props.demoTests.length > 2 ? <div className={s.attention}>Достигнуто максимальное число тестов</div>
-                        : <button className={s.taskBtn} onClick={props.addTest} name={'demoTests'}> Добавить тест </button>
-                }
-
-                <div>
-                    Тесты программы
-                </div>
-                <div className={s.test}>
-                    {
-                        props.tests.map(t =>
-                            <div className={s.testInner} key={t.testId}>
-                                <div>Данные на вход<textarea onChange={props.updateTests} placeholder='Входные данные' id={t.testId} value={t.input} name={`input`} ></textarea></div>
-                                <div>Данные на выходе<textarea onChange={props.updateTests} placeholder='Выходные данные' id={t.testId} value={t.output} name={`output`} ></textarea></div>
-                            </div>)
-                    }
-                </div>
-                {
-                     props.tests.length > 9 ? <div className={s.attention}>Достигнуто максимальное число тестов</div>:
+                     props.tests.length > 12 ? <div className={s.attention}>Достигнуто максимальное число тестов</div>:
                          <button className={s.taskBtn} onClick={props.addTest} name={'tests'}> Добавить тест </button>
                 }
                 <div>
                     Выберите языки программирования, подходящие для решения задачи
                 </div>
+
                 <div className={s.checkboxEl}>
                     <input onChange={props.handleUpdate} type="checkbox" name='python'/> <div>python</div>
                 </div>
