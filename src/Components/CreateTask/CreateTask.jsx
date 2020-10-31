@@ -72,7 +72,7 @@ const CreateTask = (props) => {
                 </div>
                 {props.isChange ?
                     <div className={s.testInner}>
-                        <button className={s.submitBtn} onClick={props.handleSubmit}>Удалить таск</button>
+                        <button className={s.submitBtn} onClick={props.handleDelete}>Удалить таск</button>
                         <button className={s.submitBtn} onClick={props.handleSubmit}>Изменить таск</button>
                     </div>
                     : <button className={s.submitBtn} onClick={props.handleSubmit}>Отправить таск</button>

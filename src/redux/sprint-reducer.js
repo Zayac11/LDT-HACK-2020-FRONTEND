@@ -8,6 +8,8 @@ const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 const ADD_SPRINT = 'ADD_SPRINT'
 const ADD_TASK = 'ADD_TASK'
 const UPDATE_TASK = 'UPDATE_TASK'
+const DELETE_TASK = 'DELETE_TASK'
+const SEND_CODE = 'SEND_CODE'
 
 let initialState = {
     name: "",
@@ -137,6 +139,24 @@ const sprintReducer = (state = initialState, action) => {
                     ...s //иначе просто делаем копию объекта, без изменений
                 }) )
             }
+        case DELETE_TASK:
+            debugger
+            return {
+                ...state,
+                sprints: state.sprints.map(s =>
+                        ({
+                            ...s,
+                            tasks: [...s.tasks, s.tasks.filter((d) => {
+                                return d.id !== action.taskId
+                                }
+                            )]
+                        })
+                    // s.map(d => d.filter(
+                    // (task) => {
+                    //     return task.id !== action.taskId
+                    // }
+                )
+            }
         case UPDATE_TASK:
             let changedTask = {
                 id: action.taskId,
@@ -165,6 +185,8 @@ export const toggleIsFetching = (isFetch) => ({type: TOGGLE_IS_FETCHING, isFetch
 export const addSprint = (sprintName, sprintId) => ({type: ADD_SPRINT, sprintName, sprintId})
 export const addTask = (taskName, taskId, sprintId) => ({type: ADD_TASK, taskName, taskId, sprintId})
 export const changeTask = (taskName, taskId, theoryText, missionText, languages) => ({type: UPDATE_TASK, taskName, taskId, theoryText, missionText, languages})
+export const removeTask = (taskId) => ({type: DELETE_TASK, taskId})
+// export const sendPracticeCode = () => ({type: SEND_CODE})
 
 const getHeaders = () => {
     const accessToken = 'Bearer  ' + Cookies.get('accessToken')
@@ -213,8 +235,40 @@ export const SendTask = (taskName, taskId, theoryText, missionText, demoTests, t
 }
 export const updateTask = (taskName, taskId, theoryText, missionText, demoTests, tests, languages, timeLimit, memoryLimit) => {
     return (dispatch) => {
-        debugger
+
         dispatch(changeTask(taskName, taskId, theoryText, missionText, languages))
+    }
+}
+export const deleteTask = (taskId) => {
+    return (dispatch) => {
+        dispatch(removeTask(taskId))
+    }
+}
+export const sendCode = (language, timeLimit = 1000, taskId, code) => {
+
+    const accessToken = 'Bearer  ' + Cookies.get('accessToken')
+    let myHeaders = new Headers();
+    myHeaders.append("Authorization", accessToken);
+    let formdata = new FormData();
+    formdata.append("language", language);
+    formdata.append("time_limit_millis", timeLimit);
+    formdata.append("task_id", taskId);
+    formdata.append("code", code);
+
+    let requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: formdata,
+        redirect: 'follow'
+    };
+
+    return (dispatch) => {
+        console.log(language, timeLimit = 1000, taskId, code)
+        taskAPI.sendCode(requestOptions, taskId)
+            .then(response => {
+                console.log(response)
+            })
+        // dispatch(sendPracticeCode())
     }
 }
 

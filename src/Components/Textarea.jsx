@@ -27,7 +27,7 @@ class Textarea extends React.Component {
     }
 
     handleSubmit = (event) => {
-        console.log(this.state)
+        this.props.handleSubmit(this.state.code)
         //Надо подвязать сюда callback из классовой контейнерной компоненты, где я буду сетать этот текст в тот local state и потом отправлять его
     }
 
@@ -43,9 +43,9 @@ class Textarea extends React.Component {
                     <div className="container_editor_area">
                         <Editor
                             placeholder={'Type some code'}
-                            value={this.state.code}
+                            value={this.props.valueCode}
                             onValueChange={code => {
-                                this.setState({code})
+                                this.props.handleChange({code})
                             }}
                             highlight={code => highlight(code, languages.js)}
                             padding={10}

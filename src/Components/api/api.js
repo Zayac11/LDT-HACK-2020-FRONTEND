@@ -17,8 +17,15 @@ export const authAPI = {
 
 export const taskAPI = {
     getTask(requestOptions,taskId){
-        return fetch(`http://127.0.0.1:8000/api/task/${taskId}/`, requestOptions)
+        return fetch(`http://127.0.0.1:8000/api/tasks/${taskId}/`, requestOptions)
             .then(response => response.json())
+    },
+    sendCode(requestOptions, taskId) {
+        return fetch(`http://127.0.0.1:8000/api/tasks/${taskId}/send_code`, requestOptions)
+            .then(response => {
+                debugger
+                response.json()
+            })
     }
 }
 

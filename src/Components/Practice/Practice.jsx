@@ -15,8 +15,11 @@ const Practice = (props) => {
             {/*Сюда по-хорошему нужно в пропсах передавать код, который ученик мог вводить до этого*/}
 
             <Textarea
+                handleChange={props.handleChange}
+                handleSubmit={props.handleSubmit}
                 languages={props.task.languages}
                 code={task_detail.last_code}
+                valueCode={props.code}
             />
             {
                 task_detail.is_done

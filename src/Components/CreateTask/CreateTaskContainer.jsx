@@ -3,7 +3,7 @@ import s from './CreateTask.module.css'
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import CreateTask from "./CreateTask";
-import {getSprints, getTask, SendTask, updateTask} from "../../redux/sprint-reducer";
+import {deleteTask, getSprints, getTask, SendTask, updateTask} from "../../redux/sprint-reducer";
 
 class CreateTaskContainer extends React.Component{
 
@@ -105,7 +105,6 @@ class CreateTaskContainer extends React.Component{
     }
 
     handleSubmit() { //Создать таск
-        debugger
         console.log(this.state)
         if(this.state.isChange) {
             this.props.updateTask(this.state.taskName, Math.floor(this.state.sprintId), this.state.theoryText, this.state.missionText, this.state.demoTests,
@@ -119,7 +118,8 @@ class CreateTaskContainer extends React.Component{
     }
 
     handleDelete() {
-
+        this.props.deleteTask(Math.floor(this.state.sprintId)) //id Таска
+        //После делета можно сделать гет запрос за новым спринтом
     }
 
     componentDidMount() {
@@ -181,4 +181,4 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps,{getSprints,SendTask,updateTask,getTask})(WithCreateTaskUrl)
+export default connect(mapStateToProps,{getSprints,SendTask,updateTask,getTask,deleteTask})(WithCreateTaskUrl)
