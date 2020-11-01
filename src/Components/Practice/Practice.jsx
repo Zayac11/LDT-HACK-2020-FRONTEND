@@ -1,11 +1,10 @@
 import React from 'react';
 import Textarea from "../Textarea";
 import s from './Practice.module.css'
-import DemoTests from "../DemoTests/DemoTests";
 import TestItem from "./TestItem";
 
 const Practice = (props) => {
-
+    debugger
     return(
         <>
             <div className={s.mission}>
@@ -22,6 +21,7 @@ const Practice = (props) => {
                 languages={props.task.task.languages}
                 code={props.task_detail.last_code}
                 valueCode={props.code}
+                changeCurrentLanguage={props.changeCurrentLanguage}
             />
             <div>
                 Добавить файл <input type="file" onChange={() => {}}/>
@@ -38,10 +38,16 @@ const Practice = (props) => {
             }
             <div className={s.testContainer}>
                 {
-                    props.tests.length > 0 &&
-                    props.tests.map(t =>
-                        <DemoTests key={t.test_num} status={t.status} error={t.error}  />
-                    )
+                    props.tests.status ?
+                    <div>
+                        Процент выполненных тестов: {props.tests.mark}%
+                    </div>
+                     :
+                        <div>
+                            {props.tests.error &&
+                            props.tests.error.replace(/↵+/g, '\n')
+                            }
+                        </div>
                 }
             </div>
         </>

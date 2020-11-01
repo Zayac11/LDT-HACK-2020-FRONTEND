@@ -11,18 +11,25 @@ class PracticeContainer extends React.Component{
         this.state = {
             code: "",
             task_detail: [],
+            currentLanguage: "",
         }
 
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.changeCurrentLanguage = this.changeCurrentLanguage.bind(this)
     }
 
     handleChange(event) {
-
         this.setState({
             code: event.code
         })
 
+    }
+    changeCurrentLanguage(event) {
+
+        this.setState({
+            currentLanguage: event.target.value
+        })
     }
 
     handleSubmit(code) {
@@ -32,7 +39,7 @@ class PracticeContainer extends React.Component{
 
         console.log(this.state)
 
-        this.props.sendCode("cpp","1000", this.props.match.params.id, this.state.code) //Нужно поменять на выбранный код
+        this.props.sendCode(this.state.currentLanguage,"1000", this.props.match.params.id, this.state.code) //Нужно поменять на выбранный код
         this.setState({
             code: ""
         })
@@ -41,10 +48,12 @@ class PracticeContainer extends React.Component{
     componentDidMount() {
 
         this.setState({
+            currentLanguage: this.props.task.task.languages[0],
             task_detail: [{
                 is_done: false,
                 last_code: "",
             }],
+
         })
     }
 
@@ -52,7 +61,9 @@ class PracticeContainer extends React.Component{
         return(
             <div>
                 <Practice code={this.state.code} handleSubmit={this.handleSubmit} task_detail={this.state.task_detail}
-                          handleChange={this.handleChange} tests={this.props.tests} task={this.props.task}/>
+                          handleChange={this.handleChange} tests={this.props.tests} task={this.props.task}
+                          changeCurrentLanguage={this.changeCurrentLanguage}
+                />
             </div>
         )
     }

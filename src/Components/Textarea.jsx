@@ -35,9 +35,9 @@ class Textarea extends React.Component {
         return (
             <main className="container__textarea">
                 <div className="container__content">
-                    <select name="languages"> {/*Нужно будет передавать callback'и из классового компонента, а так же локальный state в пропсах*/}
+                    <select onChange={this.props.changeCurrentLanguage} name="languages"> {/*Нужно будет передавать callback'и из классового компонента, а так же локальный state в пропсах*/}
                         {
-                            this.props.languages.map(l => <Selection key={l} value={l} />)
+                            this.props.languages.map(l => <Selection key={l} changeCurrentLanguage={this.props.changeCurrentLanguage} value={l} />)
                         }
                     </select>
                     <div className="container_editor_area">
@@ -50,19 +50,10 @@ class Textarea extends React.Component {
                             highlight={code => highlight(code, languages.js)}
                             padding={10}
                             tabSize={4}
-                            // style={{
-                            //     width: 1000,
-                            //     margin: 'auto',
-                            //     fontFamily: '"Fira code", "Fira Mono", monospace',
-                            //     fontSize: 16,
-                            // }}
                             className="container__editor"
                         />
                     </div>
 
-                    {/*<textarea onChange={this.handleChange} name="code">*/}
-
-                    {/*</textarea>*/}
                     <button onClick={this.handleSubmit} className={'submit-button'}>Проверить решение</button>
                 </div>
             </main>
@@ -74,6 +65,6 @@ export default Textarea;
 
 const Selection = (props) => {
     return(
-        <option value="">{props.value}</option>
+        <option  value={`${props.value}`} >{props.value}</option>
     )
 }

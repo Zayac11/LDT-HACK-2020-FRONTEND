@@ -17,43 +17,7 @@ let initialState = {
     sprints: [],
     isFetching: true,
     task:[],
-    tests: [
-    // {
-    //     error: "task_Start: execv(1): /home/ejudge/solves/5/131/in 0<input.txt↵Status: OK↵CPUTime: 2↵RealTime: 3↵VMSize: 442368↵",
-    //     status: true,
-    //     test_num: 0,
-    // },
-    // {
-    //     error: "task_Start: execv(1): /home/ejudge/solves/5/131/in 0<input.txt↵Status: OK↵CPUTime: 2↵RealTime: 3↵VMSize: 442368↵",
-    //     status: true,
-    //     test_num: 0,
-    // },
-    // {
-    //     error: "task_Start: execv(1): /home/ejudge/solves/5/131/in 0<input.txt↵Status: OK↵CPUTime: 2↵RealTime: 3↵VMSize: 442368↵",
-    //     status: true,
-    //     test_num: 0,
-    // },
-    // {
-    //     error: "task_Start: execv(1): /home/ejudge/solves/5/131/in 0<input.txt↵Status: OK↵CPUTime: 2↵RealTime: 3↵VMSize: 442368↵",
-    //     status: true,
-    //     test_num: 0,
-    // },
-    // {
-    //     error: "task_Start: execv(1): /home/ejudge/solves/5/131/in 0<input.txt↵Status: OK↵CPUTime: 2↵RealTime: 3↵VMSize: 442368↵",
-    //     status: true,
-    //     test_num: 0,
-    // },
-    // {
-    //     error: "task_Start: execv(1): /home/ejudge/solves/5/131/in 0<input.txt↵Status: OK↵CPUTime: 2↵RealTime: 3↵VMSize: 442368↵",
-    //     status: true,
-    //     test_num: 0,
-    // },
-    // {
-    //     error: "task_Start: execv(1): /home/ejudge/solves/5/131/in 0<input.txt↵Status: OK↵CPUTime: 2↵RealTime: 3↵VMSize: 442368↵",
-    //     status: true,
-    //     test_num: 0,
-    // },
-    ],
+    tests: [],
 }
 
 
@@ -123,6 +87,7 @@ const sprintReducer = (state = initialState, action) => {
 
             }
         case SET_TESTS:
+            debugger
             return {
                 ...state,
                 tests: action.tests
@@ -329,6 +294,10 @@ export const updateSprint = (sprintId, sprintName) => {
 
 export const sendCode = (language, timeLimit = 1000, taskId, code) => {
 
+    const accessToken = 'Bearer  ' + Cookies.get('accessToken')
+    let myHeaders = new Headers();
+    myHeaders.append("Authorization", accessToken);
+
     let formdata = new FormData();
     formdata.append("language", language);
     formdata.append("time_limit_millis", timeLimit);
@@ -337,7 +306,7 @@ export const sendCode = (language, timeLimit = 1000, taskId, code) => {
 
     let requestOptions = {
         method: 'POST',
-        headers: getToken(),
+        headers: myHeaders,
         body: formdata,
         redirect: 'follow'
     };
@@ -349,7 +318,7 @@ export const sendCode = (language, timeLimit = 1000, taskId, code) => {
                 result => result.json().then(
                     result => {
                         console.log(JSON.parse(result))
-                        dispatch(setTests(JSON.parse(result).tests))
+                        dispatch(setTests(JSON.parse(result)))
                     }
                 ),
         )
