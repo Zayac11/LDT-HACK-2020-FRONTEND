@@ -8,7 +8,6 @@ import '../../Common/style.css'
 class MyClasses extends React.Component{
 
     componentDidMount() {
-        debugger
         if(this.props.classData.length === 0 && this.props.isLogin) {
             this.props.getClass()
             this.props.setTeacherStatus()

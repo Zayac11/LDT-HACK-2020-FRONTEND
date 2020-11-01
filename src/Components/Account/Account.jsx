@@ -1,12 +1,16 @@
 import React from "react";
 import '../../Common/style.css'
 import s from './Account.module.css'
+import {NavLink} from "react-router-dom";
 
 const Account = (props) => {
     return (
         <div className='outer'>
             <div className='container'>
                 <div className={s.inner}>
+                    <NavLink to={'/my_classes'} className={s.backBtn}>
+                        Вернуться назад
+                    </NavLink>
                     <div className={s.data}>
                         <h2 className={s.title}>Личный кабинет</h2>
                         <div className={s.dataList}>

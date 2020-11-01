@@ -111,7 +111,6 @@ export const getClass = () => {
 export const setTeacherStatus = () => {
     return async (dispatch) => {
         let response = await authAPI.getStatus(getHeaders())
-        debugger
         response === "TEACHER" &&
         dispatch(setTeacher(true))
     }

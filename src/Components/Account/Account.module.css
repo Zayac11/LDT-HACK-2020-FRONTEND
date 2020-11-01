@@ -1,6 +1,7 @@
 .inner {
    padding: 50px 10px;
     display: flex;
+    position: relative;
 }
 .title {
     font-size: 26px;
@@ -23,9 +24,20 @@
     margin: 10px 0;
 }
 
-.formContainer {
-
+.backBtn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border: 1px solid black;
+    z-index: 2;
+    transition: all 0.2s ease;
+    padding: 10px 20px;
 }
+
+.backBtn:hover {
+    background-color: #ddd;
+}
+
 .formInputContainer {
     width: max-content;
     display: block;
