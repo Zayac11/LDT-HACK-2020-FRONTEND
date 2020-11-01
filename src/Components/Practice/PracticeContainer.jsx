@@ -55,6 +55,7 @@ class PracticeContainer extends React.Component{
 
         this.setState({
             currentLanguage: this.props.task.task.languages[0],
+            code: this.props.task.task.task_detail[0].last_code
         })
     }
 

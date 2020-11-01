@@ -17,9 +17,9 @@ class SprintContainer extends React.Component {
         this.handleUpdate = this.handleUpdate.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleDeleteSprint = this.handleDeleteSprint.bind(this);
-        this.handleChangeSprintName = this.handleChangeSprintName.bind(this);
         this.activateEditMode = this.activateEditMode.bind(this);
         this.deactivateEditMode = this.deactivateEditMode.bind(this);
+        this.declineInput = this.declineInput.bind(this);
 
     }
 
@@ -29,11 +29,19 @@ class SprintContainer extends React.Component {
             mutableSprintId: Math.floor(event.target.id)
         } );
     }
+
+    declineInput = (event) => {
+        this.setState( {
+            editMode: false,
+            sprintText: ""
+        });
+    }
+
     deactivateEditMode = (event) => {
         const sprintId = Math.floor(event.target.id)
         this.setState( {
             editMode: false
-        } );
+        });
         this.props.updateSprint(sprintId, this.state.sprintName)
     }
 
@@ -60,9 +68,7 @@ class SprintContainer extends React.Component {
             editMode: false
         })
     }
-    handleChangeSprintName(event) {
 
-    }
     componentDidMount() {
         let sprintId = this.props.match.params.id //id класса, а не спринта
         // if(!this.props.sprints.length > 0) { //Если спринты не подгрузились, то вызываем функцию для вызова отсюда
@@ -82,6 +88,7 @@ class SprintContainer extends React.Component {
                         handleDeleteSprint={this.handleDeleteSprint}
                         activateEditMode={this.activateEditMode}
                         deactivateEditMode={this.deactivateEditMode}
+                        declineInput={this.declineInput}
                 />
             </>
         )

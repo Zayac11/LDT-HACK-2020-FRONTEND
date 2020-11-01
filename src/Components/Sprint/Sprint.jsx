@@ -33,7 +33,7 @@ const Sprint = (props) => {
                 <div className={s.inner}>
                     {
                         props.sprints.map(t => <SprintItem key={t.id} deactivateEditMode={props.deactivateEditMode}  activateEditMode={props.activateEditMode}
-                                                           handleDeleteSprint={props.handleDeleteSprint} sprintId={t.id}
+                                                           handleDeleteSprint={props.handleDeleteSprint} sprintId={t.id} declineInput={props.declineInput}
                                                            handleUpdate={props.handleUpdate} editMode={props.editMode} mutableSprintId={props.mutableSprintId}
                                                            isTeacher={props.isTeacher} tasks={t.tasks} name={t.name} />) //мапается массив спринтов
                     }

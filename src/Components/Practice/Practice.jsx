@@ -4,6 +4,7 @@ import s from './Practice.module.css'
 import TestItem from "./TestItem";
 
 const Practice = (props) => {
+    debugger
     return(
         <>
             <div className={s.mission}>
@@ -18,7 +19,7 @@ const Practice = (props) => {
                 handleChange={props.handleChange}
                 handleSubmit={props.handleSubmit}
                 languages={props.task.task.languages}
-                code={props.task.task.task_detail[0].last_code}
+                code={props.code}
                 changeCurrentLanguage={props.changeCurrentLanguage}
             />
             <div>

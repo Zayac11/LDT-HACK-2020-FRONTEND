@@ -43,13 +43,16 @@ const CreateTask = (props) => {
                     <input onChange={props.handleUpdate} type="checkbox" name='cpp'/> <div>cpp</div>
                 </div>
                 <div className={s.checkboxEl}>
-                    <input onChange={props.handleUpdate} type="checkbox" name='java'/> <div>java</div>
-                </div>
-                <div className={s.checkboxEl}>
-                    <input onChange={props.handleUpdate} type="checkbox" name='c_sharp'/> <div>c_sharp</div>
+                    <input onChange={props.handleUpdate} type="checkbox" name='c'/> <div>java</div>
                 </div>
                 <div className={s.checkboxEl}>
                     <input onChange={props.handleUpdate} type="checkbox" name='pascal'/> <div>pascal</div>
+                </div>
+                <div className={s.checkboxEl}>
+                    <input onChange={props.handleUpdate} type="checkbox" name='csharp'/> <div>c_sharp</div>
+                </div>
+                <div className={s.checkboxEl}>
+                    <input onChange={props.handleUpdate} type="checkbox" name='perl'/> <div>c_sharp</div>
                 </div>
 
 
