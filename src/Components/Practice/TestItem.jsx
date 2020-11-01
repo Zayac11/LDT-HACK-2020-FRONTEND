@@ -2,7 +2,7 @@ import React from 'react';
 import s from './TestItem.module.css'
 
 const TestItem = (props) => {
-    debugger
+
     return(
         <div className={s.testsContainer}>
             {

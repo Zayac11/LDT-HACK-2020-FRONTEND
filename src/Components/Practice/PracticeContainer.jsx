@@ -39,7 +39,7 @@ class PracticeContainer extends React.Component{
     }
 
     componentDidMount() {
-        debugger
+
         this.setState({
             task_detail: [{
                 is_done: false,

@@ -5,7 +5,7 @@ import DemoTests from "../DemoTests/DemoTests";
 import TestItem from "./TestItem";
 
 const Practice = (props) => {
-    debugger
+
     return(
         <>
             <div className={s.mission}>
@@ -15,6 +15,7 @@ const Practice = (props) => {
                 <TestItem tests={props.task.tests} />
             </div>
             {/*Сюда по-хорошему нужно в пропсах передавать код, который ученик мог вводить до этого*/}
+
             <Textarea
                 handleChange={props.handleChange}
                 handleSubmit={props.handleSubmit}
@@ -22,6 +23,10 @@ const Practice = (props) => {
                 code={props.task_detail.last_code}
                 valueCode={props.code}
             />
+            <div>
+                Добавить файл <input type="file" onChange={() => {}}/>
+            </div>
+
             {
                 props.task_detail.is_done
                 ?   <div className={s.done}>
