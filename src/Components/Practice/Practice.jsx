@@ -21,19 +21,15 @@ const Practice = (props) => {
                 code={props.code}
                 changeCurrentLanguage={props.changeCurrentLanguage}
             />
-            <div>
-                Загрузите решение из файла <input type="file" onChange={props.handleFile}/>
+            <div className={s.file}>
+                <div className={s.fileName}>
+                    Или загрузите решение из файла
+                </div>
+                <div className={s.currentFile}>
+                    <input type="file" onChange={props.handleFile}/>
+                </div>
             </div>
 
-            {/*{*/}
-            {/*    props.task.task.task_detail[0].is_done*/}
-            {/*    ?   <div className={s.done}>*/}
-            {/*            Решено верно*/}
-            {/*        </div>*/}
-            {/*    :   <div className={s.fail}>*/}
-            {/*            Решено неверно*/}
-            {/*        </div>*/}
-            {/*}*/}
             <div className={s.testContainer}>
                 {
                     props.tests.status ?
