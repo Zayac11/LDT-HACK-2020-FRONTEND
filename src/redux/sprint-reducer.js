@@ -174,6 +174,10 @@ export const getSprints = (classId) => {
 }
 export const addSprint = (sprintName, classId) => {
 
+    const accessToken = 'Bearer  ' + Cookies.get('accessToken')
+    let myHeaders = new Headers();
+    myHeaders.append("Authorization", accessToken);
+
     let formdata = new FormData();
     formdata.append("name", sprintName)
     formdata.append("grade", classId)
@@ -181,10 +185,9 @@ export const addSprint = (sprintName, classId) => {
     let requestOptions = {
         method: 'POST',
         body: formdata,
-        headers: getToken(),
+        headers: myHeaders,
         redirect: 'follow'
     };
-
     return (dispatch) => {
         sprintAPI.addSprint(requestOptions, Math.floor(classId))
             .then(response => {
@@ -212,7 +215,7 @@ export const SendTask = (taskName, theoryText, missionText, tests, sprintId, lan
     let myHeaders = new Headers();
     myHeaders.append("Authorization", accessToken);
     myHeaders.append("Content-Type", "application/json");
-    debugger
+
     let data = JSON.stringify({
         "name": taskName,
         "theory": theoryText,
@@ -228,11 +231,12 @@ export const SendTask = (taskName, theoryText, missionText, tests, sprintId, lan
         redirect: 'follow'
     };
     return async (dispatch) => {
-        debugger
+
         await fetch(`http://127.0.0.1:8000/api/blocks/${sprintId}/new_task`, requestOptions)
     }
 }
 export const updateTask = (taskName, taskId, theoryText, missionText, tests, languages, timeLimit, memoryLimit) => {
+
     let data = JSON.stringify({
         "name": taskName,
         "theory": theoryText,
@@ -247,7 +251,7 @@ export const updateTask = (taskName, taskId, theoryText, missionText, tests, lan
         body: data,
         redirect: 'follow'
     };
-    debugger
+
     return (dispatch) => {
         taskAPI.updateTask(requestOptions, taskId)
     }
@@ -273,18 +277,24 @@ export const deleteSprint = (sprintId) => {
     }
 }
 export const updateSprint = (sprintId, sprintName) => {
+
+    const accessToken = 'Bearer  ' + Cookies.get('accessToken')
+    let myHeaders = new Headers();
+    myHeaders.append("Authorization", accessToken);
+
     let formdata = new FormData();
     formdata.append("name", sprintName)
 
     let requestOptions = {
         method: 'PUT',
         body: formdata,
-        headers: getToken(),
+        headers: myHeaders,
         redirect: 'follow'
     };
     return (dispatch) => {
         sprintAPI.updateSprint(requestOptions, sprintId)
             .then(response => {
+                debugger
                 response.ok &&
                 dispatch(changeSprintName(sprintName, sprintId))
             })
