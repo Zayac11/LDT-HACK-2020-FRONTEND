@@ -1,5 +1,5 @@
 import React from 'react';
-import {getClass} from "../../redux/auth-reducer";
+import {getClass, setTeacherStatus} from "../../redux/auth-reducer";
 import {connect} from "react-redux";
 import {NavLink} from "react-router-dom";
 import s from './MyClasses.module.css'
@@ -8,8 +8,10 @@ import '../../Common/style.css'
 class MyClasses extends React.Component{
 
     componentDidMount() {
+        debugger
         if(this.props.classData.length === 0 && this.props.isLogin) {
             this.props.getClass()
+            this.props.setTeacherStatus()
         }
     }
 
@@ -46,4 +48,4 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps,{getClass})(MyClasses)
+export default connect(mapStateToProps,{getClass, setTeacherStatus})(MyClasses)

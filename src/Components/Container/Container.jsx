@@ -17,6 +17,7 @@ import AccountContainer from "../Account/AccountContainer";
 class Container extends React.Component {
 
     componentDidMount() {
+        debugger
         this.props.setTeacherStatus()
         this.props.getUserInfo()
     }
