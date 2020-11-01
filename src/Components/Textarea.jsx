@@ -26,7 +26,7 @@ class Textarea extends React.Component {
         })
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = () => {
         this.props.handleSubmit(this.state.code)
         //Надо подвязать сюда callback из классовой контейнерной компоненты, где я буду сетать этот текст в тот local state и потом отправлять его
     }

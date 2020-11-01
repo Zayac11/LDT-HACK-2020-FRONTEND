@@ -1,15 +1,14 @@
 import React from 'react';
 import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
-import {login} from "../redux/auth-reducer";
+import {login} from "../../redux/auth-reducer";
+import s from './Login.module.css'
 
 class Login extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            // isGoing: true,
-            // numberOfGuests: 2,
             name: "",
             pass: "",
         };
@@ -28,7 +27,7 @@ class Login extends React.Component {
         });
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = () => {
            this.props.login(this.state.name, this.state.pass)
     }
 
@@ -39,22 +38,26 @@ class Login extends React.Component {
                 this.props.isLogin ?
                     <Redirect to="/my_classes" />
                     :
-                    <div>
+                    <div className={s.container}>
+                        <div className={s.loginContainer}>
+                            <h2 className={s.enter}>
+                                Вход в систему
+                            </h2>
+                            <div className={s.field}>
+                                <input placeholder={'Логин'} name="name" type="text" value={this.state.name} onChange={this.handleInputChange} />
+                            </div>
+                            <div className={s.field}>
+                                <input placeholder={'Пароль'} name="pass" type="password" value={this.state.pass} onChange={this.handleInputChange} />
+                            </div>
+                            <div className={s.submit}>
+                                <input type="submit" value="Войти" onClick={this.handleSubmit}/>
+                            </div>
 
-                        <label>
-                            Имя:
-                            <input name="name" type="text" value={this.state.name} onChange={this.handleInputChange} />
-                        </label>
-                        <br />
-                        <label>
-                            Пароль:
-                            <input name="pass" type="password" value={this.state.pass} onChange={this.handleInputChange} />
-                        </label>
-                        <label>
-                            <input type="submit" value="Отправить" onClick={this.handleSubmit}/>
-                        </label>
 
+
+                        </div>
                     </div>
+
             }
             </>
         )

@@ -45,9 +45,6 @@ class PracticeContainer extends React.Component{
         console.log(this.state)
 
         this.props.sendCode(this.state.currentLanguage,"1000", this.props.match.params.id, this.state.code) //Нужно поменять на выбранный код
-        this.setState({
-            code: ""
-        })
     }
 
     componentDidMount() {
