@@ -35,7 +35,6 @@ const CreateTask = (props) => {
                     Выберите языки программирования, подходящие для решения задачи
                 </div>
 
-
                 <div className={s.checkboxEl}>
                     <input onChange={props.handleUpdate} type="checkbox" name='python'/> <div>python</div>
                 </div>
@@ -52,7 +51,7 @@ const CreateTask = (props) => {
                     <input onChange={props.handleUpdate} type="checkbox" name='csharp'/> <div>c_sharp</div>
                 </div>
                 <div className={s.checkboxEl}>
-                    <input onChange={props.handleUpdate} type="checkbox" name='perl'/> <div>c_sharp</div>
+                    <input onChange={props.handleUpdate} type="checkbox" name='perl'/> <div>perl</div>
                 </div>
 
 

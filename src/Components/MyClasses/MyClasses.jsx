@@ -29,7 +29,7 @@ class MyClasses extends React.Component{
                                     <div className={s.name}>
                                         {c.name}
                                     </div>
-                                    <NavLink className={s.link} to={`/course/${c.id}`}>Перейти к курсам</NavLink>
+                                    <NavLink className={s.link} to={`/course/${c.id}`}>Перейти к заданиям</NavLink>
                                 </div>
                             )
                         }

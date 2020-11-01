@@ -22,11 +22,11 @@ const SprintItem = (props) => {
                     {
                         props.isTeacher &&
                         <div className={s.deleteBtn}>
-                            <button onClick={props.handleDeleteSprint} id={props.sprintId}>Удалить спринт</button>
+                            <button onClick={props.handleDeleteSprint} id={props.sprintId}>Удалить блок</button>
                             {
                                 props.editMode && props.mutableSprintId === props.sprintId ?
                                 <div>
-                                    <input onBlur={props.declineInput} autoFocus={true} onChange={props.handleUpdate} type="text" name='sprintName'/>
+                                    <input onDoubleClick={props.declineInput} autoFocus={true} onChange={props.handleUpdate} type="text" name='sprintName'/>
                                     <button onClick={props.deactivateEditMode} id={props.sprintId}>Добавить</button>
                                 </div>
                                     : <button onClick={props.activateEditMode} id={props.sprintId}>Изменить блок</button>

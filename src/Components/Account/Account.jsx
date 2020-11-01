@@ -24,7 +24,7 @@ const Account = (props) => {
                                 Дата рождения: {props.data.date_of_birth}
                             </div>
                             <div className={s.dataItem}>
-                                Школа: {props.data.school}
+                                Учебное заведение: {props.data.school}
                             </div>
                         </div>
                     </div>

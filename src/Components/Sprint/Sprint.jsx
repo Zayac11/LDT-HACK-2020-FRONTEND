@@ -24,7 +24,7 @@ const Sprint = (props) => {
                 {
                     props.isTeacher &&
                         <div className={s.addSprint}>
-                            <div><textarea className={s.addText} onChange={props.handleUpdate} value={props.sprintText} name="sprintText" placeholder='Название спринта'></textarea></div>
+                            <div><textarea className={s.addText} onChange={props.handleUpdate} value={props.sprintText} name="sprintText" placeholder='Название блока'></textarea></div>
                             <button className={s.addBtn} onClick={props.handleSubmit}>
                                 Добавить
                             </button>

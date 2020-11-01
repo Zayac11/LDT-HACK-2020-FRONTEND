@@ -20,7 +20,6 @@ class PracticeContainer extends React.Component{
     }
 
     handleChange(event) {
-        debugger
         this.setState({
             code: event.code
         })

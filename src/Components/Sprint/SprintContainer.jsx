@@ -30,19 +30,12 @@ class SprintContainer extends React.Component {
         } );
     }
 
-    declineInput = (event) => {
+    declineInput = () => {
+
         this.setState( {
             editMode: false,
             sprintText: ""
         });
-    }
-
-    deactivateEditMode = (event) => {
-        const sprintId = Math.floor(event.target.id)
-        this.setState( {
-            editMode: false
-        });
-        this.props.updateSprint(sprintId, this.state.sprintName)
     }
 
     handleUpdate(event) {
@@ -54,6 +47,16 @@ class SprintContainer extends React.Component {
             [name]: value
         });
     }
+
+    deactivateEditMode = (event) => {
+        const sprintId = Math.floor(event.target.id)
+        this.setState( {
+            editMode: false
+        });
+        this.props.updateSprint(sprintId, this.state.sprintName)
+    }
+
+
     handleSubmit() {
         debugger
         this.props.addSprint(this.state.sprintText, this.props.match.params.id) //Отсылаем на сервер и в гет запросе получаем новый id для отображения и перехода
