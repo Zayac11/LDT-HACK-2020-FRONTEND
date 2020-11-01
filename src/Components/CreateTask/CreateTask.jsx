@@ -8,6 +8,7 @@ const CreateTask = (props) => {
     if(!props.isTeacher) {
         return <Error404 />
     }
+
     return(
         <div className='outer'>
             <div className='container'>
@@ -34,6 +35,7 @@ const CreateTask = (props) => {
                     Выберите языки программирования, подходящие для решения задачи
                 </div>
 
+
                 <div className={s.checkboxEl}>
                     <input onChange={props.handleUpdate} type="checkbox" name='python'/> <div>python</div>
                 </div>
@@ -50,9 +52,10 @@ const CreateTask = (props) => {
                     <input onChange={props.handleUpdate} type="checkbox" name='pascal'/> <div>pascal</div>
                 </div>
 
+
                 <div className={s.limitation}>
                     <div>Ограничение по времени(ms)<textarea onChange={props.handleUpdate} placeholder='' value={props.timeLimit} name={`timeLimit`} ></textarea></div>
-                    <div>Ограничение по памяти(ГБ)<textarea onChange={props.handleUpdate} placeholder='' value={props.memoryLimit} name={`memoryLimit`} ></textarea></div>
+                    {/*<div>Ограничение по памяти(?)<textarea onChange={props.handleUpdate} placeholder='' value={props.memoryLimit} name={`memoryLimit`} ></textarea></div>*/}
                 </div>
                 {props.isChange ?
                     <div className={s.testInner}>

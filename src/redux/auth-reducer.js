@@ -77,7 +77,9 @@ export const login = (username, password) => {
     return async (dispatch) => {
         let response = await authAPI.login(getOptions(username, password))
         Cookies.set('accessToken', response.access, { expires: 7 })
+        if(!response.detail) {
         dispatch(setAuth(true))
+        }
     }
 }
 export const logout = () => {

@@ -18,23 +18,22 @@ const Practice = (props) => {
                 handleChange={props.handleChange}
                 handleSubmit={props.handleSubmit}
                 languages={props.task.task.languages}
-                code={props.task_detail.last_code}
-                valueCode={props.code}
+                code={props.task.task.task_detail[0].last_code}
                 changeCurrentLanguage={props.changeCurrentLanguage}
             />
             <div>
                 Добавить файл <input type="file" onChange={props.handleFile}/>
             </div>
 
-            {
-                props.task_detail.is_done
-                ?   <div className={s.done}>
-                        Решено верно
-                    </div>
-                :   <div className={s.fail}>
-                        Решено неверно
-                    </div>
-            }
+            {/*{*/}
+            {/*    props.task.task.task_detail[0].is_done*/}
+            {/*    ?   <div className={s.done}>*/}
+            {/*            Решено верно*/}
+            {/*        </div>*/}
+            {/*    :   <div className={s.fail}>*/}
+            {/*            Решено неверно*/}
+            {/*        </div>*/}
+            {/*}*/}
             <div className={s.testContainer}>
                 {
                     props.tests.status ?

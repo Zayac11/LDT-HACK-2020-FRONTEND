@@ -10,7 +10,7 @@ import MyClasses from "../MyClasses/MyClasses";
 import Error404 from "../404/Error404";
 import CreateTaskContainer from "../CreateTask/CreateTaskContainer";
 import UpdateTaskContainer from "../CreateTask/UpdateTaskContainer";
-import {setTeacherStatus} from "../../redux/auth-reducer";
+import {getClass, setTeacherStatus} from "../../redux/auth-reducer";
 import {getUserInfo} from "../../redux/account-reducer";
 import AccountContainer from "../Account/AccountContainer";
 
@@ -50,11 +50,12 @@ class Container extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        isLogin: state.auth.isLogin
+        isLogin: state.auth.isLogin,
+        classData: state.auth.classData
     };
 }
 
-export default connect(mapStateToProps, {setTeacherStatus, getUserInfo})(Container)
+export default connect(mapStateToProps, {setTeacherStatus, getUserInfo, getClass})(Container)
 
 
 

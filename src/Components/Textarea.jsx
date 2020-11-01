@@ -43,7 +43,7 @@ class Textarea extends React.Component {
                     <div className="container_editor_area">
                         <Editor
                             placeholder={'Type some code'}
-                            value={this.props.valueCode}
+                            value={this.props.code}
                             onValueChange={code => {
                                 this.props.handleChange({code})
                             }}

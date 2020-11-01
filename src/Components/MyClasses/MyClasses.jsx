@@ -8,7 +8,9 @@ import '../../Common/style.css'
 class MyClasses extends React.Component{
 
     componentDidMount() {
-
+        if(this.props.classData.length === 0 && this.props.isLogin) {
+            this.props.getClass()
+        }
     }
 
     render() {
@@ -39,7 +41,8 @@ class MyClasses extends React.Component{
 
 let mapStateToProps = (state) => {
     return{
-        classData: state.auth.classData
+        classData: state.auth.classData,
+        isLogin: state.auth.isLogin,
     }
 }
 

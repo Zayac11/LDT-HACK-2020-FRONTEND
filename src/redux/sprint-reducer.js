@@ -294,7 +294,6 @@ export const updateSprint = (sprintId, sprintName) => {
     return (dispatch) => {
         sprintAPI.updateSprint(requestOptions, sprintId)
             .then(response => {
-                debugger
                 response.ok &&
                 dispatch(changeSprintName(sprintName, sprintId))
             })

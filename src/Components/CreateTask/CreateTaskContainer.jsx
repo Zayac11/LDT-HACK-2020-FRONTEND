@@ -1,6 +1,5 @@
 import React from 'react';
-import s from './CreateTask.module.css'
-import {withRouter} from "react-router-dom";
+import {withRouter, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import CreateTask from "./CreateTask";
 import {deleteTask, getSprints, getTask, SendTask, updateTask} from "../../redux/sprint-reducer";
@@ -24,7 +23,8 @@ class CreateTaskContainer extends React.Component{
             timeLimit: "",
             memoryLimit: "",
             isChange: false,
-            allTests:[]
+            allTests:[],
+            isChangeDone: false
         };
         this.handleUpdate = this.handleUpdate.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -111,11 +111,17 @@ class CreateTaskContainer extends React.Component{
                 this.state.tests, Math.floor(this.state.sprintId), this.state.languages, this.state.timeLimit, this.state.memoryLimit)
         }
 
+        this.setState({
+            isChangeDone: true
+        })
     }
 
     handleDelete() {
         this.props.deleteTask(Math.floor(this.state.sprintId)) //В данном случае, это id ТАСКА, а не его спринта
         //После делета можно сделать гет запрос за новым спринтом
+        this.setState({
+            isChangeDone: true
+        })
     }
 
     componentDidMount() {
@@ -143,8 +149,7 @@ class CreateTaskContainer extends React.Component{
         //     })
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
-
-        if((prevProps.task.length === 0 && this.props.task.task )) {
+        if((prevProps.task.length === 0 && this.props.task.task )|| (prevProps.task.task !== this.props.task.task)) {
             debugger
             const task = this.props.task.task
             this.setState({
@@ -158,7 +163,9 @@ class CreateTaskContainer extends React.Component{
 
     render() {
         return(
-            <CreateTask isTeacher={this.props.isTeacher}
+            this.state.isChangeDone
+            ? <Redirect to={'/my_classes'} />
+            : <CreateTask isTeacher={this.props.isTeacher}
                         isChange={this.props.isChange}
                         handleUpdate={this.handleUpdate}
                         updateTests={this.updateTests}

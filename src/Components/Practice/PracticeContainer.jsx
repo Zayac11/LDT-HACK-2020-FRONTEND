@@ -10,7 +10,6 @@ class PracticeContainer extends React.Component{
         super(props);
         this.state = {
             code: "",
-            task_detail: [],
             currentLanguage: "",
         }
 
@@ -21,6 +20,7 @@ class PracticeContainer extends React.Component{
     }
 
     handleChange(event) {
+        debugger
         this.setState({
             code: event.code
         })
@@ -55,18 +55,13 @@ class PracticeContainer extends React.Component{
 
         this.setState({
             currentLanguage: this.props.task.task.languages[0],
-            task_detail: [{
-                is_done: false,
-                last_code: "",
-            }],
-
         })
     }
 
     render() {
         return(
             <div>
-                <Practice code={this.state.code} handleSubmit={this.handleSubmit} task_detail={this.state.task_detail}
+                <Practice code={this.state.code} handleSubmit={this.handleSubmit}
                           handleChange={this.handleChange} tests={this.props.tests} task={this.props.task} handleFile={this.handleFile}
                           changeCurrentLanguage={this.changeCurrentLanguage}
                 />
