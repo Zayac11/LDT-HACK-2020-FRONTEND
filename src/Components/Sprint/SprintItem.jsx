@@ -61,6 +61,7 @@ const SprintItem = (props) => {
 }
 
 const SprintTask = (props) => {
+    debugger
     return(
         <div className={s.row}>
             {
