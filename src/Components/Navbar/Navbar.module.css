@@ -12,10 +12,11 @@
 .container {
     display: flex;
     justify-content: space-between;
-    width: 1600px;
+    max-width: 1600px;
     align-items: center;
     margin: 0 auto;
     height: 70px;
+    padding: 10px;
 }
 
 .name {
@@ -26,10 +27,11 @@
 .name div {
     color: white;
     font-size: 24px;
+    margin-left: 20px;
 }
 
-.name img {
-    width: 64px;
+.name a img {
+    width: 48px;
     display: block;
 }
 

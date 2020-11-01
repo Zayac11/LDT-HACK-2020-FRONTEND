@@ -150,7 +150,6 @@ class CreateTaskContainer extends React.Component{
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if((prevProps.task.length === 0 && this.props.task.task )|| (prevProps.task.task !== this.props.task.task)) {
-            debugger
             const task = this.props.task.task
             this.setState({
                 taskName: task.name,
