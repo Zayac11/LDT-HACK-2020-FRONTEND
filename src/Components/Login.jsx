@@ -29,32 +29,7 @@ class Login extends React.Component {
     }
 
     handleSubmit = (event) => {
-        // alert('Отправленное имя: ' + this.state.name + '\n' + 'Password: ' + this.state.pass);
-
-        // let formdata = new FormData();
-        // formdata.append("username", this.state.name);
-        // formdata.append("password", this.state.pass);
-        //
-        // let requestOptions = {
-        //     method: 'POST',
-        //     body: formdata,
-        //     redirect: 'follow'
-        // };
-        //
-        // await fetch("http://127.0.0.1:8000/auth/jwt/create/", requestOptions)
-        //     .then(response => response.json())
-        //     .then(result => {
-        //         console.log(result)
-        //         Cookies.set('accessToken', result.access, { expires: 7 })
-        //         this.setState({
-        //             isLogin: true,
-        //         })
-        //     })
-        //     .catch(error => console.log('error', error));
-
-        // event.preventDefault();
-
-        this.props.login(this.state.name, this.state.pass)
+           this.props.login(this.state.name, this.state.pass)
     }
 
     render() {

@@ -60,3 +60,18 @@ export const sprintAPI = {
     },
 
 }
+
+export const accountApi = {
+    getUserData(requestOptions) {
+        return fetch(`http://127.0.0.1:8000/api/lk`, requestOptions)
+            .then(response => response.json())
+    },
+    changePassword(requestOptions) {
+        return fetch(`http://127.0.0.1:8000/auth/users/set_password/`, requestOptions)
+            .then(response => {
+                debugger
+                response.json()
+            })
+    },
+
+}

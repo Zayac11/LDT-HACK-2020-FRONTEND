@@ -291,6 +291,39 @@ export const updateSprint = (sprintId, sprintName) => {
     }
 }
 
+export const sendFile = (language, timeLimit = 1000, taskId, file) => {
+    const accessToken = 'Bearer  ' + Cookies.get('accessToken')
+    let myHeaders = new Headers();
+    myHeaders.append("Authorization", accessToken);
+
+    let formdata = new FormData();
+    formdata.append("language", language);
+    formdata.append("time_limit_millis", timeLimit);
+    formdata.append("task_id", taskId);
+    formdata.append("file", file);
+
+    let requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: formdata,
+        redirect: 'follow'
+    };
+
+    return async (dispatch) => {
+        console.log(language, timeLimit = 1000, taskId)
+        await fetch(`http://127.0.0.1:8000/api/tasks/${Math.floor(taskId)}/send_code`, requestOptions)
+            .then(
+                result => result.json().then(
+                    result => {
+                        console.log(JSON.parse(result))
+                        dispatch(setTests(JSON.parse(result)))
+                    }
+                ),
+            )
+
+    }
+}
+
 
 export const sendCode = (language, timeLimit = 1000, taskId, code) => {
 

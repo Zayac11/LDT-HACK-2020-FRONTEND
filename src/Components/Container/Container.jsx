@@ -11,11 +11,14 @@ import Error404 from "../404/Error404";
 import CreateTaskContainer from "../CreateTask/CreateTaskContainer";
 import UpdateTaskContainer from "../CreateTask/UpdateTaskContainer";
 import {setTeacherStatus} from "../../redux/auth-reducer";
+import {getUserInfo} from "../../redux/account-reducer";
+import AccountContainer from "../Account/AccountContainer";
 
 class Container extends React.Component {
 
     componentDidMount() {
         this.props.setTeacherStatus()
+        this.props.getUserInfo()
     }
 
     render() {
@@ -34,6 +37,7 @@ class Container extends React.Component {
                                 <Route path='/task/:id' render={ () => <TaskContainer />} />
                                 <Route path='/create_task/:id' render={ () => <CreateTaskContainer />} />
                                 <Route path='/update_task/:id' render={ () => <UpdateTaskContainer />} />
+                                <Route path='/account' render={ () => <AccountContainer />} />
                                 <Route path='*' render={ () => <Error404 />} />
                             </Switch>
                             <Footer />
@@ -50,7 +54,7 @@ let mapStateToProps = (state) => {
     };
 }
 
-export default connect(mapStateToProps, {setTeacherStatus})(Container)
+export default connect(mapStateToProps, {setTeacherStatus, getUserInfo})(Container)
 
 
 

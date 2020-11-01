@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './Navbar.module.css'
 import logo from '../../assets/images/logo.png'
+import {NavLink} from "react-router-dom";
 
 const Navbar = (props) => {
     return(
@@ -12,7 +13,7 @@ const Navbar = (props) => {
                 </div>
                 <div className={s.user}>
                     {/*{props.name}*/}
-                    <div>Фамилия И.О.</div>
+                    <NavLink to='/account'>Фамилия И.О.</NavLink>
                     <button onClick={props.logout}>Logout</button>
                 </div>
             </div>

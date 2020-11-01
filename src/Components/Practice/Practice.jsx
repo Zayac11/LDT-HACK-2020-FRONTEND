@@ -4,7 +4,6 @@ import s from './Practice.module.css'
 import TestItem from "./TestItem";
 
 const Practice = (props) => {
-    debugger
     return(
         <>
             <div className={s.mission}>
@@ -24,7 +23,7 @@ const Practice = (props) => {
                 changeCurrentLanguage={props.changeCurrentLanguage}
             />
             <div>
-                Добавить файл <input type="file" onChange={() => {}}/>
+                Добавить файл <input type="file" onChange={props.handleFile}/>
             </div>
 
             {
