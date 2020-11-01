@@ -26,8 +26,8 @@ const SprintItem = (props) => {
                             {
                                 props.editMode && props.mutableSprintId === props.sprintId ?
                                 <div>
-                                    <input onDoubleClick={props.declineInput} autoFocus={true} onChange={props.handleUpdate} type="text" name='sprintName'/>
-                                    <button onClick={props.deactivateEditMode} id={props.sprintId}>Добавить</button>
+                                    <input onDoubleClick={props.declineInput} placeholder='Два раза для отмены' autoFocus={true} onChange={props.handleUpdate} type="text" name='sprintName'/>
+                                    <button onClick={props.deactivateEditMode} id={props.sprintId}>Изменить</button>
                                 </div>
                                     : <button onClick={props.activateEditMode} id={props.sprintId}>Изменить блок</button>
                             }

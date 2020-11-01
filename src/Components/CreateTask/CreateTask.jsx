@@ -36,22 +36,22 @@ const CreateTask = (props) => {
                 </div>
 
                 <div className={s.checkboxEl}>
-                    <input onChange={props.handleUpdate} type="checkbox" name='python'/> <div>python</div>
+                    <input onChange={props.handleUpdate} type="checkbox" name='python3'/> <div>Python</div>
                 </div>
                 <div className={s.checkboxEl}>
-                    <input onChange={props.handleUpdate} type="checkbox" name='cpp'/> <div>cpp</div>
+                    <input onChange={props.handleUpdate} type="checkbox" name='cpp'/> <div>C++</div>
                 </div>
                 <div className={s.checkboxEl}>
-                    <input onChange={props.handleUpdate} type="checkbox" name='c'/> <div>java</div>
+                    <input onChange={props.handleUpdate} type="checkbox" name='c'/> <div>C</div>
                 </div>
                 <div className={s.checkboxEl}>
-                    <input onChange={props.handleUpdate} type="checkbox" name='pascal'/> <div>pascal</div>
+                    <input onChange={props.handleUpdate} type="checkbox" name='pascal'/> <div>Pascal</div>
                 </div>
                 <div className={s.checkboxEl}>
-                    <input onChange={props.handleUpdate} type="checkbox" name='csharp'/> <div>c_sharp</div>
+                    <input onChange={props.handleUpdate} type="checkbox" name='csharp'/> <div>C#</div>
                 </div>
                 <div className={s.checkboxEl}>
-                    <input onChange={props.handleUpdate} type="checkbox" name='perl'/> <div>perl</div>
+                    <input onChange={props.handleUpdate} type="checkbox" name='perl'/> <div>Perl</div>
                 </div>
 
 
