@@ -3,7 +3,12 @@ import React from 'react';
 const Main = () => {
     return(
         <div>
-            Главная страница
+            <div>
+                Добро пожаловать
+            </div>
+            <div>
+                Тут должна быть главная страница
+            </div>
         </div>
     )
 }

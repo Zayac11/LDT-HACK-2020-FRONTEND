@@ -22,14 +22,14 @@ const SprintItem = (props) => {
                     {
                         props.isTeacher &&
                         <div className={s.deleteBtn}>
-                            <button onClick={props.handleDeleteSprint} id={props.sprintId}>Удалить блок</button>
+                            <button className={s.btn} onClick={props.handleDeleteSprint} id={props.sprintId}>Удалить блок</button>
                             {
                                 props.editMode && props.mutableSprintId === props.sprintId ?
                                 <div>
-                                    <input onDoubleClick={props.declineInput} placeholder='Два раза для отмены' autoFocus={true} onChange={props.handleUpdate} type="text" name='sprintName'/>
-                                    <button onClick={props.deactivateEditMode} id={props.sprintId}>Изменить</button>
+                                    <input className={s.changeInput} onDoubleClick={props.declineInput} placeholder='Два раза для отмены' autoFocus={true} onChange={props.handleUpdate} type="text" name='sprintName'/>
+                                    <button className={s.btn} onClick={props.deactivateEditMode} id={props.sprintId}>Изменить блок</button>
                                 </div>
-                                    : <button onClick={props.activateEditMode} id={props.sprintId}>Изменить блок</button>
+                                    : <button className={s.btn} onClick={props.activateEditMode} id={props.sprintId}>Изменить блок</button>
                             }
                         </div>
                     }
@@ -75,7 +75,7 @@ const SprintTask = (props) => {
             <div className={s.container}>
                 <div className={s.taskName}>{props.name}</div>
                 {props.isTeacher &&
-                <NavLink to={`/update_task/${props.id}`}>Изменить задание</NavLink>}
+                <NavLink to={`/update_task/${props.id}`} className={s.changeTask}>Изменить задание</NavLink>}
                 <NavLink to={`/task/${props.id}/theory`} className={s.link}> Перейти к заданию </NavLink>
             </div>
 

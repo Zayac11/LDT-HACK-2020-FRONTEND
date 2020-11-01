@@ -8,13 +8,15 @@ const Navbar = (props) => {
         <div className={s.outer}>
             <div className={s.container}>
                 <div className={s.name}>
-                    <img src={logo} alt="logo"/>
+                    <NavLink to={'/my_classes'}>
+                        <img src={logo} alt="logo"/>
+                    </NavLink>
                     <div>Портал дистанционного обучения</div>
                 </div>
                 <div className={s.user}>
                     {/*{props.name}*/}
                     <NavLink to='/account'>Личный кабинет</NavLink>
-                    <button onClick={props.logout}>Logout</button>
+                    <button className={s.logout} onClick={props.logout}>Выйти</button>
                 </div>
             </div>
         </div>

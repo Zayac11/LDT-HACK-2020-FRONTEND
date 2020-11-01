@@ -35,7 +35,6 @@
 
 .user {
     display: flex;
-    align-items: center;
     color: white;
     font-size: 20px;
 }
@@ -43,8 +42,21 @@
 .user a {
     text-decoration: underline;
     color: white;
+    transition: all 0.3s ease;
 }
 
-.user button {
-    margin-left: 10px;
+.user a:hover {
+    color: #ccc;
 }
+
+.logout {
+    margin-left: 40px;
+    outline: none;
+    background-color: white;
+    border: none;
+    transition: all 0.3s ease;
+}
+.logout:hover {
+    background-color: #ccc;
+}
+

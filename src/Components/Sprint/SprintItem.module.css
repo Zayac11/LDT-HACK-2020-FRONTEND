@@ -41,6 +41,16 @@
 }
 
 .taskName {
+    width: 50%;
+}
+
+.changeTask {
+    border-bottom: 1px solid black;
+    transition: all 0.4s ease;
+}
+
+.changeTask:hover {
+    box-shadow: 0 5px 5px rgba(0,0,0,0.2)
 }
 
 .link {
@@ -85,6 +95,30 @@
 }
 .addTask:hover {
     background-color: #ccc;
+}
+
+.buttons {
+    background-color: white;
+}
+.btn {
+    outline: none;
+    background-color: white;
+    border: 1px solid black;
+    margin: 5px;
+    padding: 5px 10px;
+    transition: 0.3s all ease;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #ccc;
+}
+
+.changeInput {
+    outline: none;
+    border: none;
+    border-bottom: 1px solid black;
+    padding: 5px 10px;
 }
 
 /*Стрелочка*/

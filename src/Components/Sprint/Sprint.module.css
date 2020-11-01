@@ -20,7 +20,7 @@
 
 .inner {
     width: 100%;
-    padding: 10px;
+    padding: 10px 40px;
 }
 
 .classNumber {
@@ -64,7 +64,7 @@
 .addSprint {
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+    padding: 10px 40px;
 }
 .addSprint div {
     width: 80%;
